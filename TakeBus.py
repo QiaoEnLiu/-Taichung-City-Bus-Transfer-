@@ -7,7 +7,7 @@ Created on Tue May 16 15:33:26 2023
 from FilePath_OOP import FilePath
 from Bus_OOP import Bus
 
-
+   
 if __name__ =='__main__':        
     #從現在撘乘站，前往目的地可撘哪些公車
 
@@ -43,10 +43,11 @@ if __name__ =='__main__':
          
          print("----------------不需要轉乘-----------------")
          
+         print(f"\n從 {take} 撘乘：")
          for i in takeStep:
              for j in destinationStep:
-                 if i['路線'] == j['路線'] and i['方向'] == j['方向'] and int(i['站序']) < int(j['站序']):
-                     print(f"從{i['中文站點名稱']}({take})(站序{i['站序']})撘{i['路線']}({j['路線']})，到{j['中文站點名稱']}({destination})(站序{j['站序']})下車")
+                 if Bus.stepsVector(i,j):
+                     print(f"{i['路線']}[{i['站序']}]，到 {j['中文站點名稱']}[{j['站序']}] 下車")
         
     else:
         #兩站若沒有相同的公車路線，則需要轉乘

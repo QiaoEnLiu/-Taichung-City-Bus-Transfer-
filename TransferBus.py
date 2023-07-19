@@ -12,10 +12,11 @@ from Bus_OOP import Bus
     
                          
 if __name__ =='__main__':
-    #從現在撘乘站前往目的地是否需要轉乘
+    #轉乘主程式
+	#從現在撘乘站前往目的地是否需要轉乘
 
-    destination="朝陽科技大學"
-    take="吉峰東自強路口"
+    destination="逢甲大學"
+    take="朝陽科技大學"
     
     # 朝陽科技大學, 吉峰東自強路口
 
@@ -50,10 +51,12 @@ if __name__ =='__main__':
         
         print("----------------不需要轉乘-----------------")
         
+        print(f"\n從 {take} 撘乘：")
         for i in takeStep:
             for j in destinationStep:
-                if i['路線'] == j['路線'] and i['方向'] == j['方向'] and int(i['站序']) < int(j['站序']):
-                    print(f"從{i['中文站點名稱']}(站序{i['站序']})撘{i['路線']}，到{j['中文站點名稱']}(站序{j['站序']})下車")
+                if Bus.stepsVector(i,j):
+                    print(f"{i['路線']}[{i['站序']}]，",end='')
+                    print(f"到 {j['中文站點名稱']}[{j['站序']}] 下車")
              
     else:
         #需要轉乘
@@ -71,25 +74,30 @@ if __name__ =='__main__':
                 
         for i in takeStep:
             for j in transferStep:
-                if i['路線'] == j['路線'] and i['方向'] == j['方向'] and int(i['站序']) < int(j['站序']):
+                if Bus.stepsVector(i,j):
                     toTransfer.append(j)
                     
         for i in transferStep:
             for j in destinationStep:
-                if i['路線'] == j['路線'] and i['方向'] == j['方向'] and int(i['站序']) < int(j['站序']):
+                if Bus.stepsVector(i,j):
                     transferTo.append(i)
                                              
         tempBus=""
-        print(f"\n從{take}")
+        print(f"\n從 {take}")
         for i in toTransfer:
             if tempBus == '' or tempBus != i['路線']:
                 tempBus=i['路線']
                 print("-------------------------\n")
-                print(f"--撘乘{i['路線']}公車({i['方向']})")
+                print(f"--撘乘{i['路線']}[{i['方向']}]公車")
                         
             for j in transferTo:                
                 if i['中文站點名稱'] == j['中文站點名稱'] :
-                    print(f"----到({i['站序']}){i['中文站點名稱']}，轉乘{j['路線']}公車({j['方向']})")
+                    for k in destinationStep:
+                        if Bus.stepsVector(j,k):
+                            print(f"----到[{i['站序']}] {i['中文站點名稱']}",end='')
+                            print(f"[{j['站序']}] ，轉乘{j['路線']}[{j['方向']}]公車，",end='')
+                            print(f"抵達 {k['中文站點名稱']}[{k['站序']}]")
+                    
                     break
                 
         print("-------------------------")

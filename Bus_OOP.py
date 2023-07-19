@@ -41,7 +41,7 @@ class Bus:
         busIDList=[]
         temp=''
         for i in busList:
-            if takeStep==i['中文站點名稱']:
+            if takeStep in i['中文站點名稱']:
                 if temp == '' or temp != i['路線']:                        
                     busIDList.append(i['路線'])
                     temp=i['路線']
@@ -53,7 +53,7 @@ class Bus:
     
         busIDList=[]
         for i in busList:
-            if takeStep == i['中文站點名稱']:
+            if takeStep in i['中文站點名稱']:
                 busIDList.append(i)
         return busIDList
 
@@ -106,6 +106,12 @@ class Bus:
         return sameSteps
     
     
+    def stepsVector(take, destination):
+        #撘乘站與目的地站是否在同一條路線、同個方向，且以前兩狀況下目的地站是否在撘乘站之後
+        
+        return take['路線'] == destination['路線'] and take['方向'] == destination['方向'] and int(take['站序']) < int(destination['站序'])
+    
+    
     def allBusID(busList): #臺中市所有公車路線編號
         
         busIDList=[]
@@ -137,6 +143,7 @@ class Bus:
                 tempBusName=i['路線名稱']
                 
         return busNameList
+    
         
     
     def allBusStepsNum(busList,busIDList): #該路線去程站數及回程站數

@@ -15,8 +15,8 @@ if __name__ =='__main__':
     #轉乘主程式
 	#從現在撘乘站前往目的地是否需要轉乘
 
-    destination=input('請輸入目的地站名（輸入中文）：')
-    take=input('請輸入撘乘站站名（輸入中文）：')
+    destinationName=input('請輸入目的地站名（輸入中文）：')
+    takeName=input('請輸入撘乘站站名（輸入中文）：')
     
     # 逢甲大學, 逢甲大學(福星路), 逢甲大學(逢甲路)
 
@@ -26,16 +26,12 @@ if __name__ =='__main__':
          
     
     #目的地站站點相關串列
-    destinationBus=[] #行經目的地站點公車
-    desBusLine=[]     #行經目的地站點公車路線
-    destinationStep=[]#在每條路線上的目的地站點
+    destination=Bus()
     
-    
+
     #撘乘站站點相關串列
-    takeBus=[]      #行經撘乘站站點公車
-    takeBusLine=[]  #行經撘乘站站點公車路線
-    takeStep=[]     #在每條路線上的撘乘站站點
-    
+    take=Bus()
+
     
     #目的地站點相關串列
     transferStep=[] #在每條路線上的轉乘站站點
@@ -49,22 +45,22 @@ if __name__ =='__main__':
         
     
     
-    destinationBus=Bus.readStepBusesID(destination,busListCSV)
-    destinationStep=Bus.readStepBuses(destination,busListCSV)
+    destination.buses=Bus.readStepBusesID(destinationName,busListCSV)
+    destination.steps=Bus.readStepBuses(destinationName,busListCSV)
         
-    takeBus=Bus.readStepBusesID(take,busListCSV)        
-    takeStep=Bus.readStepBuses(take,busListCSV)
+    take.buses=Bus.readStepBusesID(takeName,busListCSV)        
+    take.steps=Bus.readStepBuses(takeName,busListCSV)
     
     
     #判斷可直達或需要轉乘
-    if Bus.sameBus(destinationBus,takeBus):
+    if Bus.sameBus(destination.buses,take.buses):
         #可直達，不需要轉乘
         
         print("----------------不需要轉乘-----------------")
         
-        print(f"\n從 {take} 撘乘：")
-        for i in takeStep:
-            for j in destinationStep:
+        print(f"\n從 {takeName} 撘乘：")
+        for i in take.steps:
+            for j in destination.steps:
                 if Bus.stepsVector(i,j):
                     print(f"{i['路線']}[{i['站序']}]，",end='')
                     print(f"到 {j['中文站點名稱']}[{j['站序']}] 下車")
@@ -73,28 +69,28 @@ if __name__ =='__main__':
         #需要轉乘
         print("---------------需要轉乘------------------")  
  
-        desBusLine=Bus.stepInfo(destinationBus,busListCSV)
-        takeBusLine=Bus.stepInfo(takeBus,busListCSV)   
+        destination.lines=Bus.stepInfo(destination.buses,busListCSV)
+        take.lines=Bus.stepInfo(take.buses,busListCSV)   
                
-        for i in takeBusLine:
-            for j in desBusLine:
+        for i in take.lines:
+            for j in destination.lines:
                 if i['中文站點名稱'] == j['中文站點名稱']:
                     transferStep.append(i)
                     transferStep.append(j)
                     break
                 
-        for i in takeStep:
+        for i in take.steps:
             for j in transferStep:
                 if Bus.stepsVector(i,j):
                     toTransfer.append(j)
                     
         for i in transferStep:
-            for j in destinationStep:
+            for j in destination.steps:
                 if Bus.stepsVector(i,j):
                     transferTo.append(i)
                                              
         tempBus=""
-        print(f"\n從 {take}")
+        print(f"\n從 {takeName}")
         for i in toTransfer:
             if tempBus == '' or tempBus != i['路線']:
                 tempBus=i['路線']
@@ -103,7 +99,7 @@ if __name__ =='__main__':
                         
             for j in transferTo:
                 if i['中文站點名稱'] == j['中文站點名稱'] :
-                    for k in destinationStep:
+                    for k in destination.steps:
                         if Bus.stepsVector(j,k):
                             print(f"----到[{i['站序']}] {i['中文站點名稱']}",end='')
                             print(f"[{j['站序']}] ，轉乘{j['路線']}[{j['方向']}]公車，",end='')

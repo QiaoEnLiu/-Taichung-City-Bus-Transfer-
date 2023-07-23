@@ -10,6 +10,13 @@ class Bus:
     
     #Resource/臺中市市區公車站牌資料.CSV    
     
+    def __init__(self):
+        
+        self.buses=[]   #行經該站點的公車
+        self.lines=[]   #行經該站點公車路線
+        self.steps=[]   #在每條路線上的該站點
+    
+    '''
     def __init__(self,busID,busName,roundTrip,stationID,stationName_CN,stationName_EN,latitude,longitude): 
                 
         self.busID=busID #路線編號
@@ -22,6 +29,7 @@ class Bus:
         self.longitude=longitude #緯度
         
         #針對公車CSV檔欄位所呈現的物件Bus，但目前用不到
+        '''
 
 
     def readFile(filePath):

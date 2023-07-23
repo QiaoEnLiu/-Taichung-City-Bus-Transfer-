@@ -11,7 +11,6 @@ class Bus:
     #Resource/臺中市市區公車站牌資料.CSV    
     
     def __init__(self,busID,busName,roundTrip,stationID,stationName_CN,stationName_EN,latitude,longitude): 
-        #針對公車CSV檔欄位所呈現的物件Bus，但目前用不到
                 
         self.busID=busID #路線編號
         self.busName=busName #路線名稱：名稱為「端點A站 - 端點B站」
@@ -22,9 +21,10 @@ class Bus:
         self.latitude=latitude #經度
         self.longitude=longitude #緯度
         
-        
+        #針對公車CSV檔欄位所呈現的物件Bus，但目前用不到
+
+
     def readFile(filePath):
-        #讀檔
         
         busList=[]             
         with open(filePath,newline='',encoding='big5') as csvFile:   #encoding='utf-8-sig'     
@@ -33,10 +33,11 @@ class Bus:
                 busList.append(row)                    
         csvFile.close()
         return busList
+    
+        #讀檔
 
 
     def readStepBusesID(takeStep,busList):
-        #查站牌路線（純路線編號）
     
         busIDList=[]
         temp=''
@@ -46,30 +47,34 @@ class Bus:
                     busIDList.append(i['路線'])
                     temp=i['路線']
         return busIDList
+    
+        #查站牌路線（純路線編號）
 
 
     def readStepBuses(takeStep,busList):
-        #查站牌路線（該站牌行）
     
         busIDList=[]
         for i in busList:
             if takeStep in i['中文站點名稱']:
                 busIDList.append(i)
         return busIDList
+    
+        #查站牌路線（該站牌行）
 
 
     def sameBus(destinationBus,takeBus):
-        #轉乘程式碼中，判斷是否需要轉乘
+        
     
         for i in destinationBus:
             for j in takeBus:
                 if i == j:
                     return i == j
-                
-                
+        
+        #轉乘程式碼中，判斷是否需要轉乘        
+            
+        
     def stepInfo(stepBusesID,busList):
-        #站牌資訊（途經該站所有公車路線）     
-    
+             
         busLine=[]
         tempList=[]
         for i in stepBusesID:
@@ -77,18 +82,20 @@ class Bus:
             busLine.extend(tempList)
             tempList=[]
         return busLine
+        
+        #站牌資訊（途經該站所有公車路線）
 
 
     def readBusSteps(busID,tempList,busList):
-        #查路線延站
-    
+        
         for i in busList:
             if busID == i['路線']:        
                 tempList.append(i)
                 
+        #查路線延站        
+                
                 
     def sameSteps(bus1,bus2,busList):
-        #兩條硌線相同站點，以bus1站點為主
         
         bus1Steps=[]
         bus2Steps=[]
@@ -104,15 +111,18 @@ class Bus:
                     break
                 
         return sameSteps
+        
+        #兩條硌線相同站點，以bus1站點為主
     
     
     def stepsVector(take, destination):
-        #撘乘站與目的地站是否在同一條路線、同個方向，且以前兩狀況下目的地站是否在撘乘站之後
         
         return take['路線'] == destination['路線'] and take['方向'] == destination['方向'] and int(take['站序']) < int(destination['站序'])
+        
+        #撘乘站與目的地站是否在同一條路線、同個方向，且以前兩狀況下目的地站是否在撘乘站之後
     
     
-    def allBusID(busList): #臺中市所有公車路線編號
+    def allBusID(busList): 
         
         busIDList=[]
         tempID=''
@@ -126,10 +136,12 @@ class Bus:
         buses=len(busIDList)
         print("臺中市公車共",buses,"條路線") 
         return busIDList
+        
+        #臺中市所有公車路線編號
+        
     
-    
-    def allBusName(busList): #臺中市所有公車路線名稱
-        #臺中市所有公車路線名稱
+    def allBusName(busList):
+        
                 
         busNameList=[]
         tempBusName=''
@@ -144,12 +156,11 @@ class Bus:
                 
         return busNameList
     
+        #臺中市所有公車路線名稱
         
     
-    def allBusStepsNum(busList,busIDList): #該路線去程站數及回程站數
-        #該路線去程站數及回程站數
-        #串列[['路線'],去程站數,回程站數]
-    
+    def allBusStepsNum(busList,busIDList):
+        
         listStepsNum=[]        
         for i in range(len(busIDList)):
             listTemp=[]
@@ -169,11 +180,13 @@ class Bus:
             listTemp.append(stepsIB)
             listStepsNum.append(listTemp)
             
+        #串列[['路線'],去程站數量,回程站數量]    
         return listStepsNum
+          
+        #該路線去程站數量及回程站數量
+        
     
-    
-    def searchStepName(lang,stepNameCN,stepNameEN,busList): #查站點名稱（中文/英文）
-        #查站點名稱（中文/英文）
+    def searchStepName(lang,stepNameCN,stepNameEN,busList):
         
         stepsList=[]
         CN_Name="中文站點名稱"    
@@ -194,4 +207,5 @@ class Bus:
                 stepsList.append(i)
                 
         return stepsList
-            
+    
+        #查站點名稱（中文/英文）    

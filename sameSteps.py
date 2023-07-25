@@ -8,7 +8,7 @@ from FilePath_OOP import FilePath
 from Bus_OOP import Bus
 
 if __name__ =='__main__':
-    #bus1上哪些站點可以撘bus2（無輸出）
+    #bus1路線上哪些站點與bus2路線有著一模一樣的站點名稱（無輸出）
     
     bus1='131'
     bus2='25'

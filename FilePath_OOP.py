@@ -6,12 +6,12 @@ Created on Wed May 17 11:45:11 2023
 """
 class FilePath:
     
-    def __init__(self,fileName,extName):
+    def __init__(self,file,ext):
         
-        self.resDir='Resource/' #檔案路徑
-        self.fileName=fileName #檔名
-        self.extName='.'+extName #副檔名
+        self.dir='Resource/' #檔案路徑
+        self.file=file #檔名
+        self.ext='.'+ext #副檔名
         
     def path(self):
             
-        return self.resDir+self.fileName+self.extName
+        return self.dir+self.file+self.ext

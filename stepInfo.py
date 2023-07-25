@@ -10,7 +10,7 @@ from Bus_OOP import Bus
 if __name__ =='__main__':
     #該站點上所有公車路線延站（無輸出）
     
-    step='朝陽科技大學'
+    stepName='朝陽科技大學'
     
     pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()
     busListCSV=Bus.readFile(pathDir)
@@ -21,11 +21,13 @@ if __name__ =='__main__':
         
     # 逢甲大學(福星路)
     
-    busesID=[]
-    busesID=Bus.readStepBusesID(step,busListCSV)
+    busesID=[] #行經該站點公車
+    busesID=Bus.IDsAtStep(stepName,busListCSV)
     
-    busesLine=[]
+    busesLine=[] #行經該站點公車路線，如同該站牌上的路線
     busesLine=Bus.stepInfo(busesID,busListCSV) 
+    
+    
 
     
     

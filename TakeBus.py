@@ -11,7 +11,7 @@ from Bus_OOP import Bus
 if __name__ =='__main__':        
     #從現在撘乘站，前往目的地可撘哪些公車
 
-    destination="朝陽科技大學"
+    des="朝陽科技大學"
     take="吉峰東自強路口"
        
     # 朝陽科技大學, 吉峰東自強路口
@@ -22,8 +22,8 @@ if __name__ =='__main__':
     
     busListCSV=[]
      
-    destinationBus=[]
-    destinationStep=[]
+    desBus=[]
+    desStep=[]
     
     takeBus=[]
     takeStep=[]
@@ -32,20 +32,20 @@ if __name__ =='__main__':
     
     busListCSV=Bus.readFile(pathDir)
       
-    destinationBus=Bus.readStepBusesID(destination,busListCSV)
-    destinationStep=Bus.readStepBuses(destination,busListCSV)
+    desBus=Bus.IDsAtStep(des,busListCSV)
+    desStep=Bus.busesAtStep(des,busListCSV)
         
-    takeBus=Bus.readStepBusesID(take,busListCSV)      
-    takeStep=Bus.readStepBuses(take,busListCSV)
+    takeBus=Bus.IDsAtStep(take,busListCSV)      
+    takeStep=Bus.busesAtStep(take,busListCSV)
     
-    if Bus.sameBus(destinationBus,takeBus):
+    if Bus.sameBus(desBus,takeBus):
          #兩站有相同的公車路線，則不需要轉乘
          
          print("----------------不需要轉乘-----------------")
          
          print(f"\n從 {take} 撘乘：")
          for i in takeStep:
-             for j in destinationStep:
+             for j in desStep:
                  if Bus.stepsVector(i,j):
                      print(f"{i['路線']}[{i['站序']}]，到 {j['中文站點名稱']}[{j['站序']}] 下車")
         

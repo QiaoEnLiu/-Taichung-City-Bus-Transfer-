@@ -17,7 +17,7 @@ if __name__ =='__main__':
     busListCSV=Bus.readFile(pathDir)
     
     busIDList=Bus.allBusID(busListCSV)    
-    listStepsNum=Bus.allBusStepsNum(busListCSV,busIDList)
+    listStopsNum=Bus.allBusStopsNum(busListCSV,busIDList)
     busNameList=Bus.allBusName(busListCSV)
     
     if search =='1':
@@ -31,17 +31,17 @@ if __name__ =='__main__':
         
                         
         if sortBus=='1': #去程站數由大到小排序
-            listStepsNum.sort(key=lambda x: x[1], reverse=True)
-            for i in listStepsNum:
+            listStopsNum.sort(key=lambda x: x[1], reverse=True)
+            for i in listStopsNum:
                 print(f"{i[0]},{i[1]},{i[2]}")
                        
         elif sortBus=='2': #回程站數由大到小排序
-            listStepsNum.sort(key=lambda x: x[2], reverse=True)
-            for i in listStepsNum:
+            listStopsNum.sort(key=lambda x: x[2], reverse=True)
+            for i in listStopsNum:
                 print(f"{i[0]},{i[1]},{i[2]}")
                 
         else: #編號排序
-            for i in listStepsNum:
+            for i in listStopsNum:
                 print(f"{i[0]},{i[1]},{i[2]}")
         
             

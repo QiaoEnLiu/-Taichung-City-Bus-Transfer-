@@ -8,7 +8,7 @@ Created on Sun Jul  9 11:42:18 2023
 # Bus CSV read once
 
 from FilePath_OOP import FilePath
-from Bus_OOP import Bus
+from Bus_OOP import Bus,Stop
     
                          
 if __name__ =='__main__':
@@ -25,15 +25,15 @@ if __name__ =='__main__':
          
         
     #目的地站站點相關串列
-    des=Bus()
+    des=Stop()
     
 
     #撘乘站站點相關串列
-    take=Bus()
+    take=Stop()
 
     
     #目的地站點相關串列
-    TF_Step=[] #在每條路線上的轉乘站站點
+    TF_Stops=[] #在每條路線上的轉乘站站點
     to_TF=[]   #可從撘乘站到轉乘站的公車
     TF_To=[]   #可從轉乘站到目的地站的公車
 
@@ -44,11 +44,11 @@ if __name__ =='__main__':
         
     
     
-    des.busesID=Bus.IDsAtStep(desName,busListCSV)
-    des.lineSteps=Bus.busesAtStep(desName,busListCSV)
+    des.busesID=Bus.IDsAtStop(desName,busListCSV)
+    des.lineStops=Bus.busesAtStop(desName,busListCSV)
         
-    take.busesID=Bus.IDsAtStep(takeName,busListCSV)        
-    take.lineSteps=Bus.busesAtStep(takeName,busListCSV)
+    take.busesID=Bus.IDsAtStop(takeName,busListCSV)        
+    take.lineStops=Bus.busesAtStop(takeName,busListCSV)
     
     
     #判斷可直達或需要轉乘
@@ -58,9 +58,9 @@ if __name__ =='__main__':
         print("\n----------------不需要轉乘-----------------")
         
         print(f"\n從 {takeName} 撘乘：")
-        for i in take.lineSteps:
-            for j in des.lineSteps:
-                if Bus.stepsVector(i,j):
+        for i in take.lineStops:
+            for j in des.lineStops:
+                if Bus.stopsVector(i,j):
                     print(f"{i['路線']}[{i['站序']}]，",end='')
                     print(f"到 {j['中文站點名稱']}[{j['站序']}] 下車")
              
@@ -68,25 +68,25 @@ if __name__ =='__main__':
         #需要轉乘
         print("\n---------------需要轉乘------------------")  
  
-        des.lines=Bus.stepInfo(des.busesID,busListCSV)
-        take.lines=Bus.stepInfo(take.busesID,busListCSV)   
+        des.lines=Bus.stopInfo(des.busesID,busListCSV)
+        take.lines=Bus.stopInfo(take.busesID,busListCSV)   
         
         
         for i in take.lines:
             for j in des.lines:
                 if i['中文站點名稱'] == j['中文站點名稱']: #找出行經撘乘站路線上與行經目的地站路線上相同的站點名稱，為轉乘站
-                    TF_Step.append(i)
-                    TF_Step.append(j)
+                    TF_Stops.append(i)
+                    TF_Stops.append(j)
                     break
                 
-        for i in take.lineSteps:
-            for j in TF_Step:
-                if Bus.stepsVector(i,j): #找出從撘乘站前往轉乘站的公車
+        for i in take.lineStops:
+            for j in TF_Stops:
+                if Bus.stopsVector(i,j): #找出從撘乘站前往轉乘站的公車
                     to_TF.append(j)
                     
-        for i in TF_Step:
-            for j in des.lineSteps:
-                if Bus.stepsVector(i,j): #找出從轉乘站前往目的地站的公車
+        for i in TF_Stops:
+            for j in des.lineStops:
+                if Bus.stopsVector(i,j): #找出從轉乘站前往目的地站的公車
                     TF_To.append(i)
                                               
         tempBus=""
@@ -99,8 +99,8 @@ if __name__ =='__main__':
                         
             for j in TF_To:
                 if i['中文站點名稱'] == j['中文站點名稱'] :
-                    for k in des.lineSteps:
-                        if Bus.stepsVector(j,k):
+                    for k in des.lineStops:
+                        if Bus.stopsVector(j,k):
                             print(f"----到[{i['站序']}] {i['中文站點名稱']}",end='')
                             print(f"[{j['站序']}] ，轉乘{j['路線']}[{j['方向']}]公車，",end='')
                             print(f"抵達 {k['中文站點名稱']}[{k['站序']}]")

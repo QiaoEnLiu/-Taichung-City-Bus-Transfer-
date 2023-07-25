@@ -15,11 +15,11 @@ if __name__ =='__main__':
     pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()
     busListCSV=Bus.readFile(pathDir)
     
-    stepsList=[]
-    Bus.linesAtStep(busID,stepsList,busListCSV)
+    stopsList=[]
+    Bus.linesAtStop(busID,stopsList,busListCSV)
     
     tempBound=''
-    for i in stepsList:
+    for i in stopsList:
         if tempBound == '' or tempBound != i['方向']:
             tempBound=i['方向']
             print("-------------------------\n")

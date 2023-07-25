@@ -23,20 +23,20 @@ if __name__ =='__main__':
     busListCSV=[]
      
     desBus=[]
-    desStep=[]
+    desStop=[]
     
     takeBus=[]
-    takeStep=[]
+    takeStop=[]
     
     pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()
     
     busListCSV=Bus.readFile(pathDir)
       
-    desBus=Bus.IDsAtStep(des,busListCSV)
-    desStep=Bus.busesAtStep(des,busListCSV)
+    desBus=Bus.IDsAtStop(des,busListCSV)
+    desStop=Bus.busesAtStop(des,busListCSV)
         
-    takeBus=Bus.IDsAtStep(take,busListCSV)      
-    takeStep=Bus.busesAtStep(take,busListCSV)
+    takeBus=Bus.IDsAtStop(take,busListCSV)      
+    takeStop=Bus.busesAtStop(take,busListCSV)
     
     if Bus.sameBus(desBus,takeBus):
          #兩站有相同的公車路線，則不需要轉乘
@@ -44,9 +44,9 @@ if __name__ =='__main__':
          print("----------------不需要轉乘-----------------")
          
          print(f"\n從 {take} 撘乘：")
-         for i in takeStep:
-             for j in desStep:
-                 if Bus.stepsVector(i,j):
+         for i in takeStop:
+             for j in desStop:
+                 if Bus.stopsVector(i,j):
                      print(f"{i['路線']}[{i['站序']}]，到 {j['中文站點名稱']}[{j['站序']}] 下車")
         
     else:

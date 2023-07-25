@@ -14,11 +14,11 @@ if __name__ =='__main__':
     bus2='25'
     
     busListCSV=[]
-    sameSteps=[]
+    sameStops=[]
         
     pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()
     busListCSV=Bus.readFile(pathDir)
     
-    sameSteps=Bus.sameSteps(bus1,bus2,busListCSV) 
+    sameStops=Bus.sameStops(bus1,bus2,busListCSV) 
                 
     

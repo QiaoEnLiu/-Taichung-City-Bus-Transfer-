@@ -135,8 +135,8 @@ class Bus:
             if tempID == '' or tempID != i['路線']:
                 busIDList.append(i['路線'])
                 tempID=i['路線']
-        buses=len(busIDList)
-        print("臺中市公車共",buses,"條路線") 
+        #buses=len(busIDList)
+        #print("臺中市公車共",buses,"條路線") 
         return busIDList
         
         

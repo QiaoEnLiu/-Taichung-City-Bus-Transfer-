@@ -10,18 +10,17 @@ from Bus_OOP import Bus
    
 if __name__ =='__main__':        
     #從現在撘乘站，前往目的地可撘哪些公車
+    
+    busListDF=Bus.readOnlineFile()
+    busList=busListDF.to_dict('records') 
 
     des="朝陽科技大學"
     take="吉峰東自強路口"
        
     # 朝陽科技大學, 吉峰東自強路口
-
     # 臺中車站, 高鐵臺中站, 臺中市政府, 新光三越
-        
     # 逢甲大學(福星路)
-    
-    busList=[]
-     
+         
     desBus=[]
     desStop=[]
     
@@ -31,8 +30,6 @@ if __name__ =='__main__':
     #pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()
     #busList=Bus.readFile(pathDir)
     
-    busListDF=Bus.readOnlineFile()
-    busList=busListDF.to_dict('records') 
       
     desBus=Bus.IDsAtStop(des,busList)
     desStop=Bus.busesAtStop(des,busList)

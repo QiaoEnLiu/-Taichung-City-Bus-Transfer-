@@ -14,6 +14,14 @@ from Bus_OOP import Bus,Stop
 if __name__ =='__main__':
     #臺中市公車轉乘組合主程式
 	#從現在撘乘站前往目的地是否需要轉乘
+    
+    #讀取CSV檔
+    #pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
+    #busList=Bus.readFile(pathDir)
+        
+    #讀檔    
+    busListDF=Bus.readOnlineFile()
+    busList=busListDF.to_dict('records')    
 
     #目的地名稱（地標）
     desName=input('請輸入目的地（輸入中文，可模糊名稱、地標或站名，如「臺中車站」、「逢甲大學」或「逢甲大學(福星路)」、「逢甲大學(逢甲路)」）：\n')
@@ -36,16 +44,6 @@ if __name__ =='__main__':
     TF_Stops=[] #在每條路線上的轉乘站站點
     to_TF=[]   #可從撘乘站到轉乘站的公車
     TF_To=[]   #可從轉乘站到目的地站的公車
-
-
-    #讀取CSV檔
-    #pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    #busList=Bus.readFile(pathDir)
-    
-    
-    #讀檔    
-    busListDF=Bus.readOnlineFile()
-    busList=busListDF.to_dict('records')    
     
     
     des.busesID=Bus.IDsAtStop(desName,busList)

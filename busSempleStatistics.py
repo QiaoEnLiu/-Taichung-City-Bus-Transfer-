@@ -4,26 +4,31 @@ Created on Sun Jul  9 14:22:03 2023
 
 @author: User
 """
-from FilePath_OOP import FilePath
+#from FilePath_OOP import FilePath
 from Bus_OOP import Bus
 
 
 if __name__ =='__main__':
     #臺中市公車路線初步統計
     
-    search=input('1：顯示臺中市公車路線數量\n2：顯示臺中市公車各路線站點數量（去程、回程）\n3：顯示臺中市公車路線編號與中文名稱\n')
+    #pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
+    #busList=Bus.readFile(pathDir)
+  
+    busListDF=Bus.readOnlineFile()
+    busList=busListDF.to_dict('records') 
     
-    pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()
-    busListCSV=Bus.readFile(pathDir)
+    search=input('1：顯示臺中市公車路線數量\n2：顯示臺中市公車各路線站點數量（去程、回程）\n3：顯示臺中市公車路線編號與中文名稱\n4：站點名稱數量（中文）\n')
     
-    busIDList=Bus.allBusID(busListCSV)    
-    listStopsNum=Bus.allBusStopsNum(busListCSV,busIDList)
-    busNameList=Bus.allBusName(busListCSV)
+    busIDList=Bus.allBusID(busList)    
+    listStopsNum=Bus.allBusStopsNum(busList,busIDList)
+    busNameList=Bus.allBusName(busList)
     
     if search =='1':
         print("路線編號") #臺中市所有公車路線數量及編號
         for i in busIDList:
             print(i)
+        buses=len(busIDList)
+        print(f'\n臺中市公車共{buses}條路線') 
             
     elif search =='2':
         sortBus=input('1：去程站數由大到小排序\n2：回程站數由大到小排序\n預設：以編號排序\n')
@@ -49,6 +54,26 @@ if __name__ =='__main__':
         print("路線編號,中文名稱") #每條路線中文名稱
         for i in busNameList:
             print(f"{i[0]},[{i[1]}]")
+            
+    elif search =='4':
+        
+        stopsSort=sorted(busList,key=lambda x: x['中文站點名稱'])
+        stopNameList=[]
+        tempName=''
+        for i in stopsSort:
+            tempList=[]
+            if tempName=='' or tempName!=i['中文站點名稱']:
+                tempList.append(i['中文站點名稱'])
+                tempList.append(i['英文站點名稱'])
+                tempList.append(i['經度'])
+                tempList.append(i['緯度'])
+                stopNameList.append(tempList)
+                tempName=i['中文站點名稱']
+            if tempName == i['中文站點名稱']:
+                continue
+        nums=len(stopNameList)
+        print(f'行經臺中市內所有路線上的站點共{len(stopNameList)}站')
+    
     
 
         

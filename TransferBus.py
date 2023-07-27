@@ -7,7 +7,7 @@ Created on Sun Jul  9 11:42:18 2023
 
 # Bus CSV read once
 
-from FilePath_OOP import FilePath
+#from FilePath_OOP import FilePath
 from Bus_OOP import Bus,Stop
     
                          
@@ -39,16 +39,20 @@ if __name__ =='__main__':
 
 
     #讀取CSV檔
-    pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    busListCSV=Bus.readFile(pathDir)
-        
+    #pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
+    #busList=Bus.readFile(pathDir)
     
     
-    des.busesID=Bus.IDsAtStop(desName,busListCSV)
-    des.lineStops=Bus.busesAtStop(desName,busListCSV)
+    #讀檔    
+    busListDF=Bus.readOnlineFile()
+    busList=busListDF.to_dict('records')    
+    
+    
+    des.busesID=Bus.IDsAtStop(desName,busList)
+    des.lineStops=Bus.busesAtStop(desName,busList)
         
-    take.busesID=Bus.IDsAtStop(takeName,busListCSV)        
-    take.lineStops=Bus.busesAtStop(takeName,busListCSV)
+    take.busesID=Bus.IDsAtStop(takeName,busList)        
+    take.lineStops=Bus.busesAtStop(takeName,busList)
     
     
     #判斷可直達或需要轉乘
@@ -68,8 +72,8 @@ if __name__ =='__main__':
         #需要轉乘
         print("\n---------------需要轉乘------------------")  
  
-        des.lines=Bus.stopInfo(des.busesID,busListCSV)
-        take.lines=Bus.stopInfo(take.busesID,busListCSV)   
+        des.lines=Bus.stopInfo(des.busesID,busList)
+        take.lines=Bus.stopInfo(take.busesID,busList)   
         
         
         for i in take.lines:

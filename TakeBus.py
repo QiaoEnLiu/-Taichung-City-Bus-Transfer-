@@ -4,7 +4,7 @@ Created on Tue May 16 15:33:26 2023
 
 @author: User
 """
-from FilePath_OOP import FilePath
+#from FilePath_OOP import FilePath
 from Bus_OOP import Bus
 
    
@@ -20,7 +20,7 @@ if __name__ =='__main__':
         
     # 逢甲大學(福星路)
     
-    busListCSV=[]
+    busList=[]
      
     desBus=[]
     desStop=[]
@@ -28,15 +28,17 @@ if __name__ =='__main__':
     takeBus=[]
     takeStop=[]
     
-    pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()
+    #pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()
+    #busList=Bus.readFile(pathDir)
     
-    busListCSV=Bus.readFile(pathDir)
+    busListDF=Bus.readOnlineFile()
+    busList=busListDF.to_dict('records') 
       
-    desBus=Bus.IDsAtStop(des,busListCSV)
-    desStop=Bus.busesAtStop(des,busListCSV)
+    desBus=Bus.IDsAtStop(des,busList)
+    desStop=Bus.busesAtStop(des,busList)
         
-    takeBus=Bus.IDsAtStop(take,busListCSV)      
-    takeStop=Bus.busesAtStop(take,busListCSV)
+    takeBus=Bus.IDsAtStop(take,busList)      
+    takeStop=Bus.busesAtStop(take,busList)
     
     if Bus.sameBus(desBus,takeBus):
          #兩站有相同的公車路線，則不需要轉乘
@@ -47,7 +49,7 @@ if __name__ =='__main__':
          for i in takeStop:
              for j in desStop:
                  if Bus.stopsVector(i,j):
-                     print(f"{i['路線']}[{i['站序']}]，到 {j['中文站點名稱']}[{j['站序']}] 下車")
+                     print(f"{i['路線']}[{i['站序']}]，到 {i['中文站點名稱']}[{i['站序']}] 下車")
         
     else:
         #兩站若沒有相同的公車路線，則需要轉乘

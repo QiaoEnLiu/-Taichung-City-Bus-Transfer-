@@ -5,6 +5,7 @@ Created on Sun Jul  9 12:24:44 2023
 @author: User
 """
 import csv
+import pandas as pd
 
 class Stop:
     
@@ -33,6 +34,12 @@ class Bus:
         
         '''
 
+    def readOnlineFile(): #讀取「臺中市市區公車站牌資料」url
+        
+        url='https://datacenter.taichung.gov.tw/swagger/OpenData/2dd516a9-510f-424e-91d8-17dae9cedf99'
+        df=pd.read_csv(url,encoding='big5')
+        return df
+        #return df.to_dict('records')
 
     def readFile(filePath): #讀檔
         

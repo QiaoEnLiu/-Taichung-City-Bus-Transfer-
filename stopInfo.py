@@ -7,8 +7,10 @@ Created on Mon Jul  3 14:39:12 2023
 from FilePath_OOP import FilePath
 from Bus_OOP import Bus
 
+
+
 if __name__ =='__main__':
-    #該站點上所有公車路線延站（無輸出）
+    #站牌資訊，該站點上所有公車路線
     
     stopName='朝陽科技大學'
     
@@ -21,11 +23,27 @@ if __name__ =='__main__':
         
     # 逢甲大學(福星路)
     
-    busesID=[] #行經該站點公車
-    busesID=Bus.IDsAtStop(stopName,busListCSV)
+    busIDList=[]
+    stopsSort=[]
+    stopsName=[]
     
-    busesLine=[] #行經該站點公車路線，如同該站牌上的路線
-    busesLine=Bus.stopInfo(busesID,busListCSV) 
+    for i in busListCSV:
+        if stopName in i['中文站點名稱']:
+            busIDList.append(i)
+            
+    stopsSort=sorted(busIDList,key=lambda x: x['中文站點名稱'])
+
+    tempName=''
+    for i in stopsSort:
+        if tempName=='' or tempName!=i['中文站點名稱']:
+            tempName=i['中文站點名稱']
+            print("---------")
+            print(f"\n{i['中文站點名稱']}",f"{i['英文站點名稱']},",f"({i['經度']},{i['緯度']})\n---------")
+        if tempName == i['中文站點名稱']:
+            print(i['路線'],i['方向'],f"[{i['站序']}]")
+    print("---------")
+
+     
     
     
 

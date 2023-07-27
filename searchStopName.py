@@ -9,7 +9,7 @@ from Bus_OOP import Bus
 
 
 if __name__ =='__main__':
-    #中文站點名稱比對
+    #查站點名稱，中文站名比對
     
     #lang=input('輸入站名語言 Input language for step name(CN/EN):')
     
@@ -31,12 +31,8 @@ if __name__ =='__main__':
     busListCSV=Bus.readFile(pathDir)
 
     stopsList=Bus.searchStopName('CN', stopNameCN,stopNameEN, busListCSV)
-    
-    '''
-    print('路線,方向,站序,中文站點名稱,英文站點名稱,經度,緯度')
-    for i in stopsList:
-        print(i['路線'],i['方向'],i['站序'],i['中文站點名稱'],i['英文站點名稱'],i['經度'],i['緯度'])
-    '''
+    #stopsList=Bus.searchStopName(lang, stopNameCN,stopNameEN, busListCSV)
+
         
     stopsSort=sorted(stopsList,key=lambda x: x['中文站點名稱'])
     tempStopName=''
@@ -49,16 +45,9 @@ if __name__ =='__main__':
             tempList.append(i['緯度'])
             stopsName.append(tempList)
             tempStopName=i['中文站點名稱']
-            
-    for i in stopsName:
-        print(f"{i[0]},{i[1]}")
-        '''
-        for j in stepsSort:
-            print(f"{j['路線']}[{j['方向']},{j['站序']}]",end=',')
-        print()
-        '''
+            print(i['中文站點名稱'],i['英文站點名稱'])
+    
         
-            
             
         
             

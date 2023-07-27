@@ -7,7 +7,10 @@
 此專案由Python撰寫，使用Anaconda-Spyder環境以「吉峰東自強路口」前往「逢甲大學（福星路）」測試，在輸入撘乘站點及目的站點後，先判斷是否可以直達，不可直達則輸出轉乘組合。
 
 
-	Resource資料夾：臺中市公車站牌資料集（已可抓取URL讀取資料）
+	Resource資料夾：臺中市公車站牌資料集（離線）
+
+	臺中市市區公車站牌資料載點網頁： https://opendata.taichung.gov.tw/dataset/3abb79cc-1a9f-11e8-8f43-00155d021202
+	取得線上URL: https://datacenter.taichung.gov.tw/swagger/OpenData/2dd516a9-510f-424e-91d8-17dae9cedf99
  
 	Bus_OOP.py：適用於本專案的自建函數
 	busSempleStatistics.py：臺中市公車簡易統計

@@ -36,12 +36,12 @@ if __name__ =='__main__':
     stopsList=Bus.searchStopName('CN', stopNameCN,stopNameEN, busList)
 
 
-    stopsSort=sorted(stopsList,key=lambda x: x['中文站點名稱'])
-    tempStopName=''
+    stopsSort=sorted(stopsList,key=lambda x: (x['中文站點名稱'],x['經度']))
+    tempStopNameLaLo=''
     print()
     for i in stopsSort:
-        if tempStopName == '' or tempStopName != i['中文站點名稱']:
+        if tempStopNameLaLo == '' or tempStopNameLaLo != (i['中文站點名稱']+','+str(i['經度'])+','+str(i['緯度'])):
             stopsNameList.append(i)
-            tempStopName=i['中文站點名稱']
-            print(i['中文站點名稱'],i['英文站點名稱'])
+            tempStopNameLaLo=i['中文站點名稱']+','+str(i['經度'])+','+str(i['緯度'])
+            print(i['中文站點名稱'],i['英文站點名稱'],i['經度'],i['緯度'])
     

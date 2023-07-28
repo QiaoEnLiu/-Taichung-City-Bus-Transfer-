@@ -33,16 +33,16 @@ if __name__ =='__main__':
         if stopName in i['中文站點名稱']:
             busIDList.append(i)
             
-    stopsSort=sorted(busIDList,key=lambda x: x['中文站點名稱'])
+    stopsSort=sorted(busIDList,key=lambda x: (x['中文站點名稱'],x['經度']))
 
     print()
-    tempName=''
+    tempNameLaLo=''
     for i in stopsSort:
-        if tempName=='' or tempName!=i['中文站點名稱']:
-            tempName=i['中文站點名稱']
+        if tempNameLaLo=='' or tempNameLaLo!=(i['中文站點名稱']+','+str(i['經度'])+','+str(i['緯度'])):
+            tempNameLaLo=i['中文站點名稱']+','+str(i['經度'])+','+str(i['緯度'])
             print("---------")
             print(f"\n{i['中文站點名稱']}",f"{i['英文站點名稱']},",f"({i['經度']},{i['緯度']})\n---------")
-        if tempName == i['中文站點名稱']:
+        if tempNameLaLo == (i['中文站點名稱']+','+str(i['經度'])+','+str(i['緯度'])):
             print(i['路線'],i['方向'],f"[{i['站序']}]")
     print("---------")
 

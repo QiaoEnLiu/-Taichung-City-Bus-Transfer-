@@ -71,6 +71,7 @@ if __name__ =='__main__':
         print("\n---------------需要轉乘------------------")  
  
         des.lines=Bus.stopInfo(des.busesID,busList)
+        
         take.lines=Bus.stopInfo(take.busesID,busList)   
         
         
@@ -93,6 +94,9 @@ if __name__ =='__main__':
                                               
         tempBus=""
         print(f"\n從 {takeName}")
+        
+        #des.lineStops=sorted(des.lineStops,key=lambda x: x['中文站點名稱'])
+
         for i in to_TF:
             if tempBus == '' or tempBus != i['路線']:
                 tempBus=i['路線']

@@ -94,12 +94,6 @@ if __name__ =='__main__':
             nums=len(stopNameList)
             print(f'行經臺中市內所有路線上的站點共{len(stopNameList)}站')
         
-        
-        
-        
-        
-    
-    
-
+ 
         
     

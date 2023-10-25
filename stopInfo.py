@@ -45,11 +45,3 @@ if __name__ =='__main__':
         if tempNameLaLo == (i[Bus.stopName_CN]+','+str(i[Bus.latitude])+','+str(i[Bus.longitude])):
             print(i[Bus.busID],i[Bus.roundTrip],f"[{i[Bus.stopID]}]")
     print("---------")
-
-     
-    
-    
-
-    
-    
-    

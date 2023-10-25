@@ -44,4 +44,3 @@ if __name__ =='__main__':
             stopsNameList.append(i)
             tempStopNameLaLo=i[Bus.stopName_CN]+','+str(i[Bus.latitude])+','+str(i[Bus.longitude])
             print(i[Bus.stopName_CN],i[Bus.stopName_EN],i[Bus.latitude],i[Bus.longitude])
-    

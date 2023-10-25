@@ -19,7 +19,6 @@ class Bus:
     
     #Resource/臺中市市區公車站牌資料.CSV    
     
-    
     '''
     def __init__(self,busID,busName,roundTrip,stopID,stopName_CN,stopName_EN,latitude,longitude): #針對公車CSV檔欄位所呈現的物件Bus，但目前用不到
                 

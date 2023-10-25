@@ -22,7 +22,7 @@ if __name__ =='__main__':
     
     #Bus.linesAtStop(busID,stopsList,busList)
     for i in busList:
-        if busID == i['路線']:        
+        if busID == i[Bus.busID]:        
             stopsList.append(i)
            
 
@@ -33,12 +33,12 @@ if __name__ =='__main__':
     
         tempBound=''
         for i in stopsList:
-            if tempBound == '' or tempBound != i['方向']:
-                tempBound=i['方向']
+            if tempBound == '' or tempBound != i[Bus.roundTrip]:
+                tempBound=i[Bus.roundTrip]
                 print("-------------------------\n")
-                print(f"{busID}路線：[{i['路線名稱']}]")
-                print(f"--{i['方向']}")
+                print(f"{busID}路線：[{i[Bus.busName]}]")
+                print(f"--{i[Bus.roundTrip]}")
                 print("--------------")
                 
-            print(i['站序'],i['中文站點名稱'],i['英文站點名稱'],i['經度'],i['緯度'],sep=", ")
+            print(i[Bus.stopID],i[Bus.stopName_CN],i[Bus.stopName_EN],i[Bus.latitude],i[Bus.longitude],sep=", ")
     

@@ -46,7 +46,7 @@ if __name__ =='__main__':
          for i in takeStop:
              for j in desStop:
                  if Bus.stopsVector(i,j):
-                     print(f"{j['路線']}[{j['站序']}]，到 {j['中文站點名稱']}[{j['站序']}] 下車")
+                     print(f"{j[Bus.busID]}[{j[Bus.stopID]}]，到 {j[Bus.stopName_CN]}[{j[Bus.stopID]}] 下車")
         
     else:
         #兩站若沒有相同的公車路線，則需要轉乘

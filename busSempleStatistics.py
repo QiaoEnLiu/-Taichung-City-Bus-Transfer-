@@ -54,40 +54,42 @@ if __name__ =='__main__':
         print("路線編號,中文名稱") #每條路線中文名稱
         for i in busNameList:
             print(f"{i[0]},[{i[1]}]")
+        buses=len(busNameList)
+        print(f'\n臺中市公車共{buses}條路線')
             
     elif search =='4':
         sortStops=input('1：以名稱總計\n2：以站點位置（經緯度）總計\n')
         
         if sortStops=="1":
-            stopsSort=sorted(busList,key=lambda x: x['中文站點名稱'])
+            stopsSort=sorted(busList,key=lambda x: x[Bus.busName])
             stopNameList=[]
             tempName=''
             for i in stopsSort:
                 tempList=[]
-                if tempName=='' or tempName!=i['中文站點名稱']:
-                    tempList.append(i['中文站點名稱'])
-                    tempList.append(i['英文站點名稱'])
+                if tempName=='' or tempName!=i[Bus.busName]:
+                    tempList.append(i[Bus.busName])
+                    tempList.append(i[Bus.stopName_EN])
                     stopNameList.append(tempList)
-                    tempName=i['中文站點名稱']
-                if tempName == i['中文站點名稱']:
+                    tempName=i[Bus.busName]
+                if tempName == i[Bus.busName]:
                     continue
             nums=len(stopNameList)
             print(f'行經臺中市內所有路線上的站點共{len(stopNameList)}站')
         
         elif sortStops=="2":
-            stopsSort=sorted(busList,key=lambda x: (x['中文站點名稱'],x['經度']))
+            stopsSort=sorted(busList,key=lambda x: (x[Bus.busName],x[Bus.latitude]))
             stopNameList=[]
             tempNameLaLo=''
             for i in stopsSort:
                 tempList=[]
-                if tempNameLaLo=='' or tempNameLaLo!=(i['中文站點名稱']+","+str(i['經度'])+","+str(i['緯度'])):
-                    tempList.append(i['中文站點名稱'])
-                    tempList.append(i['英文站點名稱'])
-                    tempList.append(i['經度'])
-                    tempList.append(i['緯度'])
+                if tempNameLaLo=='' or tempNameLaLo!=(i[Bus.busName]+","+str(i[Bus.latitude])+","+str(i[Bus.longitude])):
+                    tempList.append(i[Bus.busName])
+                    tempList.append(i[Bus.stopName_EN])
+                    tempList.append(i[Bus.latitude])
+                    tempList.append(i[Bus.longitude])
                     stopNameList.append(tempList)
-                    tempNameLaLo=(i['中文站點名稱']+","+str(i['經度'])+","+str(i['緯度']))
-                if tempNameLaLo ==(i['中文站點名稱']+","+str(i['經度'])+","+str(i['緯度'])):
+                    tempNameLaLo=(i[Bus.busName]+","+str(i[Bus.latitude])+","+str(i[Bus.longitude]))
+                if tempNameLaLo ==(i[Bus.busName]+","+str(i[Bus.latitude])+","+str(i[Bus.longitude])):
                     continue
             nums=len(stopNameList)
             print(f'行經臺中市內所有路線上的站點共{len(stopNameList)}站')

@@ -30,20 +30,20 @@ if __name__ =='__main__':
     stopsName=[]
     
     for i in busList:
-        if stopName in i['中文站點名稱']:
+        if stopName in i[Bus.stopName_CN]:
             busIDList.append(i)
             
-    stopsSort=sorted(busIDList,key=lambda x: (x['中文站點名稱'],x['經度']))
+    stopsSort=sorted(busIDList,key=lambda x: (x[Bus.stopName_CN],x[Bus.latitude]))
 
     print()
     tempNameLaLo=''
     for i in stopsSort:
-        if tempNameLaLo=='' or tempNameLaLo!=(i['中文站點名稱']+','+str(i['經度'])+','+str(i['緯度'])):
-            tempNameLaLo=i['中文站點名稱']+','+str(i['經度'])+','+str(i['緯度'])
+        if tempNameLaLo=='' or tempNameLaLo!=(i[Bus.stopName_CN]+','+str(i[Bus.latitude])+','+str(i[Bus.longitude])):
+            tempNameLaLo=i[Bus.stopName_CN]+','+str(i[Bus.latitude])+','+str(i[Bus.longitude])
             print("---------")
-            print(f"\n{i['中文站點名稱']}",f"{i['英文站點名稱']},",f"({i['經度']},{i['緯度']})\n---------")
-        if tempNameLaLo == (i['中文站點名稱']+','+str(i['經度'])+','+str(i['緯度'])):
-            print(i['路線'],i['方向'],f"[{i['站序']}]")
+            print(f"\n{i[Bus.stopName_CN]}",f"{i[Bus.stopName_EN]},",f"({i[Bus.latitude]},{i[Bus.longitude]})\n---------")
+        if tempNameLaLo == (i[Bus.stopName_CN]+','+str(i[Bus.latitude])+','+str(i[Bus.longitude])):
+            print(i[Bus.busID],i[Bus.roundTrip],f"[{i[Bus.stopID]}]")
     print("---------")
 
      

@@ -63,8 +63,8 @@ if __name__ =='__main__':
         for i in take.lineStops:
             for j in des.lineStops:
                 if Bus.stopsVector(i,j):
-                    print(f"{i['路線']}[{i['站序']}]，",end='')
-                    print(f"到 {j['中文站點名稱']}[{j['站序']}] 下車")
+                    print(f"{i[Bus.busID]}[{i[Bus.stopID]}]，",end='')
+                    print(f"到 {j[Bus.stopName_CN]}[{j[Bus.stopID]}] 下車")
              
     else:
         #需要轉乘
@@ -77,7 +77,7 @@ if __name__ =='__main__':
         
         for i in take.lines:
             for j in des.lines:
-                if i['中文站點名稱'] == j['中文站點名稱']: #找出行經撘乘站路線上與行經目的地站路線上相同的站點名稱，為轉乘站
+                if i[Bus.stopName_CN] == j[Bus.stopName_CN]: #找出行經撘乘站路線上與行經目的地站路線上相同的站點名稱，為轉乘站
                     TF_Stops.append(i)
                     TF_Stops.append(j)
                     break
@@ -95,21 +95,21 @@ if __name__ =='__main__':
         tempBus=""
         print(f"\n從 {takeName}")
         
-        #des.lineStops=sorted(des.lineStops,key=lambda x: x['中文站點名稱'])
+        #des.lineStops=sorted(des.lineStops,key=lambda x: x[Bus.stopName_CN])
 
         for i in to_TF:
-            if tempBus == '' or tempBus != i['路線']:
-                tempBus=i['路線']
+            if tempBus == '' or tempBus != i[Bus.busID]:
+                tempBus=i[Bus.busID]
                 print("-------------------------\n")
-                print(f"--撘乘{i['路線']}[{i['方向']}]公車")
+                print(f"--撘乘{i[Bus.busID]}[{i[Bus.roundTrip]}]公車")
                         
             for j in TF_To:
-                if i['中文站點名稱'] == j['中文站點名稱'] :
+                if i[Bus.stopName_CN] == j[Bus.stopName_CN] :
                     for k in des.lineStops:
                         if Bus.stopsVector(j,k):
-                            print(f"----到[{i['站序']}] {i['中文站點名稱']}",end='')
-                            print(f"[{j['站序']}] ，轉乘{j['路線']}[{j['方向']}]公車，",end='')
-                            print(f"抵達 {k['中文站點名稱']}[{k['站序']}]")
+                            print(f"----到[{i[Bus.stopID]}] {i[Bus.stopName_CN]}",end='')
+                            print(f"[{j[Bus.stopID]}] ，轉乘{j[Bus.busID]}[{j[Bus.roundTrip]}]公車，",end='')
+                            print(f"抵達 {k[Bus.stopName_CN]}[{k[Bus.stopID]}]")
                     
                     break
                 

@@ -4,17 +4,17 @@ Created on Mon Jul  3 15:59:39 2023
 
 @author: User
 """
-#from FilePath_OOP import FilePath
+from FilePath_OOP import FilePath
 from Bus_OOP import Bus
 
 if __name__ =='__main__':
     #該公車路線
     
-    #pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    #busList=Bus.readFile(pathDir)
+    pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
+    busList=Bus.readFile(pathDir)
   
-    busListDF=Bus.readOnlineFile()
-    busList=busListDF.to_dict('records') 
+    # busListDF=Bus.readOnlineFile()
+    # busList=busListDF.to_dict('records') 
     
     busID=input('請輸入路線：')
            

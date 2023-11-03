@@ -4,18 +4,18 @@ Created on Sun Jul  9 16:53:44 2023
 
 @author: User
 """
-#from FilePath_OOP import FilePath
+from FilePath_OOP import FilePath
 from Bus_OOP import Bus
 
 
 if __name__ =='__main__':
     #查站點名稱，中文站名比對（輸出只有站名）
     
-    #pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    #busList=Bus.readFile(pathDir)
+    pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
+    busList=Bus.readFile(pathDir)
   
-    busListDF=Bus.readOnlineFile()
-    busList=busListDF.to_dict('records') 
+    # busListDF=Bus.readOnlineFile()
+    # busList=busListDF.to_dict('records') 
     
     #lang=input('查詢站點「臺中車站」 Seach Stop Name(Taichung Station)\n輸入語言 Input language for step name(CN/EN):')
     

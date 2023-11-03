@@ -4,15 +4,18 @@ Created on Tue May 16 15:33:26 2023
 
 @author: User
 """
-#from FilePath_OOP import FilePath
+from FilePath_OOP import FilePath
 from Bus_OOP import Bus
 
    
 if __name__ =='__main__':        
     #從現在撘乘站，前往目的地可撘哪些公車
     
-    busListDF=Bus.readOnlineFile()
-    busList=busListDF.to_dict('records') 
+    # busListDF=Bus.readOnlineFile()
+    # busList=busListDF.to_dict('records') 
+    
+    pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
+    busList=Bus.readFile(pathDir)
 
     des="朝陽科技大學"
     take="吉峰東自強路口"

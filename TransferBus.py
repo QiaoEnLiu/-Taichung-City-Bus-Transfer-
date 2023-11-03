@@ -7,7 +7,7 @@ Created on Sun Jul  9 11:42:18 2023
 
 # Bus CSV read once
 
-#from FilePath_OOP import FilePath
+from FilePath_OOP import FilePath
 from Bus_OOP import Bus,Stop
     
                          
@@ -16,12 +16,12 @@ if __name__ =='__main__':
 	#從現在撘乘站前往目的地是否需要轉乘
     
     #讀取CSV檔
-    #pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    #busList=Bus.readFile(pathDir)
+    pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
+    busList=Bus.readFile(pathDir)
         
     #讀檔    
-    busListDF=Bus.readOnlineFile()
-    busList=busListDF.to_dict('records')    
+    # busListDF=Bus.readOnlineFile()
+    # busList=busListDF.to_dict('records')    
 
     #目的地名稱（地標）
     desName=input('請輸入目的地（輸入中文，可模糊名稱、地標或站名，如「臺中車站」、「逢甲大學」或「逢甲大學(福星路)」、「逢甲大學(逢甲路)」）：\n')

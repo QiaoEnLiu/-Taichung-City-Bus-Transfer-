@@ -4,7 +4,7 @@ Created on Mon Jul  3 14:39:12 2023
 
 @author: User
 """
-#from FilePath_OOP import FilePath
+from FilePath_OOP import FilePath
 from Bus_OOP import Bus
 
 
@@ -12,11 +12,11 @@ from Bus_OOP import Bus
 if __name__ =='__main__':
     #站牌資訊，該站點上所有公車路線
 
-    #pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    #busList=Bus.readFile(pathDir)
+    pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
+    busList=Bus.readFile(pathDir)
   
-    busListDF=Bus.readOnlineFile()
-    busList=busListDF.to_dict('records') 
+    # busListDF=Bus.readOnlineFile()
+    # busList=busListDF.to_dict('records') 
     
     
     stopName=input('請輸入站點名稱（朝陽科技大學、臺中車站、逢甲大學）：')

@@ -6,6 +6,8 @@ Created on Mon Jul  3 17:19:49 2023
 """
 #from FilePath_OOP import FilePath
 from Bus_OOP import Bus
+from FilePath_OOP import FilePath
+
 
 if __name__ =='__main__':
     #bus1路線上哪些站點與bus2路線有著一模一樣的站點名稱（無輸出）
@@ -16,11 +18,11 @@ if __name__ =='__main__':
     busListCSV=[]
     sameStops=[]
         
-    #pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    #busList=Bus.readFile(pathDir)
+    pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
+    busList=Bus.readFile(pathDir)
   
-    busListDF=Bus.readOnlineFile()
-    busList=busListDF.to_dict('records') 
+    # busListDF=Bus.readOnlineFile()
+    # busList=busListDF.to_dict('records') 
     
     sameStops=Bus.sameStops(bus1,bus2,busList) 
                 

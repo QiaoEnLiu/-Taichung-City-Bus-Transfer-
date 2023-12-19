@@ -42,7 +42,7 @@ if __name__ == '__main__':
     
     #轉乘站站點相關串列
     TF_Stops=[] #在每條路線上的轉乘站站點
-    to_TF=[]   #可從撘乘站到轉乘站的公車
+    To_TF=[]   #可從撘乘站到轉乘站的公車
     TF_To=[]   #可從轉乘站到目的地站的公車
     
     
@@ -84,7 +84,7 @@ if __name__ == '__main__':
         for i in take.lineStops:
             for j in TF_Stops:
                 if Stop.stopsVector(i,j): #找出從撘乘站前往轉乘站的公車
-                    to_TF.append(j)
+                    To_TF.append(j)
                     
         for i in TF_Stops:
             for j in des.lineStops:
@@ -96,7 +96,7 @@ if __name__ == '__main__':
         
         #des.lineStops=sorted(des.lineStops,key=lambda x: x[Stop.stopName_CN])
 
-        for i in to_TF:
+        for i in To_TF:
             if tempBus == '' or tempBus != i[Stop.busID]:
                 tempBus=i[Stop.busID]
                 print("-------------------------\n")

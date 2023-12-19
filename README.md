@@ -9,8 +9,8 @@
 
 	Resource資料夾：臺中市公車站牌資料集（離線）
 
-	臺中市市區公車站牌資料載點網頁： https://opendata.taichung.gov.tw/dataset/3abb79cc-1a9f-11e8-8f43-00155d021202
-	取得線上URL: https://datacenter.taichung.gov.tw/swagger/OpenData/2dd516a9-510f-424e-91d8-17dae9cedf99
+	臺中市市區公車站牌資料載點網頁： https://opendata.taichung.gov.tw/search/3e09d847-0fbd-41fa-9e6c-2b37aa47e07e
+	
  
 	Bus_OOP.py：適用於本專案的自建函數
 	busSempleStatistics.py：臺中市公車簡易統計

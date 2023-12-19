@@ -7,15 +7,15 @@ Created on Sun Jul  9 12:24:44 2023
 import csv
 import pandas as pd
 
-class Stop:
+class BusLine:
     
     def __init__(self):
         
-        self.busesID=[] #行經該站點的公車
+        self.busesID=[] #行經該站點的公車編號
         self.lines=[] #行經該站點公車路線
         self.lineStops=[] #在每條路線上的該站點
 
-class Bus:
+class Stop:
     
     #Resource/臺中市市區公車站牌資料.CSV    
     
@@ -25,7 +25,7 @@ class Bus:
         self.busID=busID #路線：路線編號
         self.busName=busName #路線名稱：名稱為「端點A站 - 端點B站」
         self.roundTrip=roundTrip #方向：路線名稱「端點A站 - 端點B站」為去程(outbound)，「端點A站」為發車站，站序1；而回程(inbound)以「端點B站」發車，「端點B站」站序為1，為回程發車站
-        self.stop=stopID #站序：發車站點（端點）為1，數字遞增為行車方向
+        self.stop=stopID #站序：發車站點（端點）為1，數字遞增為行車方向，也可稱「向量」
         self.stopName_CN=stopName_CN #中文站點名稱
         self.stopName_EN=stopName_EN #English Stop Name
         self.latitude=latitude #經度
@@ -34,18 +34,18 @@ class Bus:
         '''
     
         
-    busID='路線' #路線：路線編號 / Bus.busID
-    busName='路線名稱' #路線名稱：名稱為「端點A站 - 端點B站」 / Bus.busName
-    roundTrip='方向' #方向 / Bus.roundTrip
-    stopID='站序' #站序：發車站點（端點）為1，數字遞增為行車方向 / Bus.stopID
-    stopName_CN='中文站點名稱' #中文站點名稱 / Bus.stopName_CN
-    stopName_EN='英文站點名稱' #English Stop Name / Bus.stopName_EN
-    latitude='經度' #經度 / Bus.latitude
-    longitude='緯度' #緯度 / Bus.longitude
+    busID='路線' #路線：路線編號 / Stop.busID
+    busName='路線名稱' #路線名稱：名稱為「端點A站 - 端點B站」 / Stop.busName
+    roundTrip='方向' #方向 / Stop.roundTrip
+    stopID='站序' #站序：發車站點（端點）為1，數字遞增為行車方向，也可稱「向量」 / Stop.stopID
+    stopName_CN='中文站點名稱' #中文站點名稱 / Stop.stopName_CN
+    stopName_EN='英文站點名稱' #English Stop Name / Stop.stopName_EN
+    latitude='經度' #經度 / Stop.latitude
+    longitude='緯度' #緯度 / Stop.longitude
     
     #路線方向分為兩種
-    roundTrip_ob='去程' #路線名稱「端點A站 - 端點B站」為去程(outbound)，「端點A站」為發車站 / Bus.roundTrip_ob
-    roundTrip_ib='回程' #回程(inbound)以「端點B站」發車 / Bus.roundTrip_ib
+    roundTrip_ob='去程' #路線名稱「端點A站 - 端點B站」為去程(outbound)，「端點A站」為發車站 / Stop.roundTrip_ob
+    roundTrip_ib='回程' #回程(inbound)以「端點B站」發車 / Stop.roundTrip_ib
     
 
     def readOnlineFile(): #讀取「臺中市市區公車站牌資料」url
@@ -72,19 +72,19 @@ class Bus:
         busIDList=[]
         temp=''
         for i in busList:
-            if stop in i[Bus.stopName_CN]:
-                if temp == '' or temp != i[Bus.busID]:  
-                    busIDList.append(i[Bus.busID])
-                    temp=i[Bus.busID]
+            if stop in i[Stop.stopName_CN]:
+                if temp == '' or temp != i[Stop.busID]:  
+                    busIDList.append(i[Stop.busID])
+                    temp=i[Stop.busID]
         return busIDList
 
     
 
-    def busesAtStop(takeStop,busList): #查行經該站點的路線（該站點行）
+    def busesAtStop(takeStop,busList): #查行經該站點的路線編號（包括該站點行）
     
         busIDList=[]
         for i in busList:
-            if takeStop in i[Bus.stopName_CN]:
+            if takeStop in i[Stop.stopName_CN]:
                 busIDList.append(i)
         return busIDList
     
@@ -98,13 +98,14 @@ class Bus:
                     return i == j
         
                                    
-    def stopInfo(busesID,busList): #站牌路線資訊（列出行經該站的公車路線，要先由IDsAtStop函式前找出行經該站的路線編號，再透過路線編號從已讀取的資料集串列，找出每條路線上的每個站點）
-             
+    def stopInfo(busesID,busList): #站牌路線資訊
+        #列出行經該站的公車路線，要先由IDsAtStop函式前找出行經該站的路線編號，再透過路線編號從已讀取的資料集串列，找出每條路線上的每個站點
+        
         busLine=[]
         for i in busesID:
             tempList=[] 
             for j in busList:
-                if i == j[Bus.busID]:        
+                if i == j[Stop.busID]:        
                     tempList.append(j)
             busLine.extend(tempList)
             
@@ -114,7 +115,7 @@ class Bus:
     def linesAtStop(busID,tempList,busList): #路線延站
         
         for i in busList:
-            if busID == i[Bus.busID]:        
+            if busID == i[Stop.busID]:        
                 tempList.append(i)
                                             
               
@@ -123,11 +124,11 @@ class Bus:
         bus1Stops=[]
         bus2Stops=[]
         sameStops=[]        
-        Bus.linesAtStop(bus1,bus1Stops,busList)
-        Bus.linesAtStop(bus2,bus2Stops,busList)        
+        Stop.linesAtStop(bus1,bus1Stops,busList)
+        Stop.linesAtStop(bus2,bus2Stops,busList)        
         for i in bus1Stops:
             for j in bus2Stops:
-                if i[Bus.stopName_CN] == j[Bus.stopName_CN]:
+                if i[Stop.stopName_CN] == j[Stop.stopName_CN]:
                     sameStops.append(i)
                     sameStops.append(j)
                     break
@@ -135,9 +136,9 @@ class Bus:
         return sameStops
         
     
-    def stopsVector(take, des): #撘乘站與目的地站是否在同一條路線、同個方向，且以前兩狀況下目的地站是否在撘乘站之後
+    def stopsVector(take, des): #撘乘站與目的地站是否在同一條路線、同個方向、目的地站是否在撘乘站之後
         
-        return take[Bus.busID] == des[Bus.busID] and take[Bus.roundTrip] == des[Bus.roundTrip] and int(take[Bus.stopID]) < int(des[Bus.stopID])
+        return take[Stop.busID] == des[Stop.busID] and take[Stop.roundTrip] == des[Stop.roundTrip] and int(take[Stop.stopID]) < int(des[Stop.stopID])
         
                 
     def allBusID(busList): #臺中市所有公車路線編號
@@ -146,9 +147,9 @@ class Bus:
         tempID=''
         #buses=0        
         for i in busList:
-            if tempID == '' or tempID != i[Bus.busID]:
-                busIDList.append(i[Bus.busID])
-                tempID=i[Bus.busID]
+            if tempID == '' or tempID != i[Stop.busID]:
+                busIDList.append(i[Stop.busID])
+                tempID=i[Stop.busID]
         #buses=len(busIDList)
         #print("臺中市公車共",buses,"條路線") 
         return busIDList
@@ -161,11 +162,11 @@ class Bus:
         tempBusName=''        
         for i in busList:
             tempList=[]
-            if tempBusName == '' or tempBusName != i[Bus.busName]:
-                tempList.append(i[Bus.busID])
-                tempList.append(i[Bus.busName])
+            if tempBusName == '' or tempBusName != i[Stop.busName]:
+                tempList.append(i[Stop.busID])
+                tempList.append(i[Stop.busName])
                 busNameList.append(tempList)
-                tempBusName=i[Bus.busName]                
+                tempBusName=i[Stop.busName]                
         return busNameList      
         
     
@@ -177,10 +178,10 @@ class Bus:
             stopsOB=0
             stopsIB=0              
             for row in busList:
-                if busIDList[i]==row[Bus.busID]:                    
-                    if Bus.roundTrip_ob==row[Bus.roundTrip]:                
+                if busIDList[i]==row[Stop.busID]:                    
+                    if Stop.roundTrip_ob==row[Stop.roundTrip]:                
                         stopsOB+=1                         
-                    if Bus.roundTrip_ib==row[Bus.roundTrip]:                        
+                    if Stop.roundTrip_ib==row[Stop.roundTrip]:                        
                         stopsIB+=1                                      
             listTemp.append(busIDList[i])
             listTemp.append(stopsOB)
@@ -194,8 +195,8 @@ class Bus:
     def searchStopName(lang,stopNameCN,stopNameEN,busList): #查站點名稱（中文/英文），暫時只有中文
         
         stopsList=[]
-        CN_Name=Bus.stopName_CN    
-        EN_Name=Bus.stopName_EN
+        CN_Name=Stop.stopName_CN    
+        EN_Name=Stop.stopName_EN
         stopName=""        
         langField=""        
         if lang=="CN":

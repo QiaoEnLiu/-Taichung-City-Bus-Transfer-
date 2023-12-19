@@ -8,19 +8,19 @@ Created on Sun Jul  9 11:42:18 2023
 # Bus CSV read once
 
 from FilePath_OOP import FilePath
-from Bus_OOP import Bus,Stop
+from Bus_OOP import Stop, BusLine
     
                          
-if __name__ =='__main__':
+if __name__ == '__main__':
     #臺中市公車轉乘組合主程式
 	#從現在撘乘站前往目的地是否需要轉乘
     
     #讀取CSV檔
     pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    busList=Bus.readFile(pathDir)
+    busList=Stop.readFile(pathDir)
         
     #讀檔    
-    # busListDF=Bus.readOnlineFile()
+    # busListDF=Stop.readOnlineFile()
     # busList=busListDF.to_dict('records')    
 
     #目的地名稱（地標）
@@ -33,28 +33,28 @@ if __name__ =='__main__':
          
         
     #目的地站站點相關串列
-    des=Stop()
+    des=BusLine()
     
 
     #撘乘站站點相關串列
-    take=Stop()
+    take=BusLine()
 
     
-    #目的地站點相關串列
+    #轉乘站站點相關串列
     TF_Stops=[] #在每條路線上的轉乘站站點
     to_TF=[]   #可從撘乘站到轉乘站的公車
     TF_To=[]   #可從轉乘站到目的地站的公車
     
     
-    des.busesID=Bus.IDsAtStop(desName,busList)
-    des.lineStops=Bus.busesAtStop(desName,busList)
+    des.busesID=Stop.IDsAtStop(desName,busList)
+    des.lineStops=Stop.busesAtStop(desName,busList)
         
-    take.busesID=Bus.IDsAtStop(takeName,busList)        
-    take.lineStops=Bus.busesAtStop(takeName,busList)
+    take.busesID=Stop.IDsAtStop(takeName,busList)        
+    take.lineStops=Stop.busesAtStop(takeName,busList)
     
     
     #判斷可直達或需要轉乘
-    if Bus.sameBus(des.busesID,take.busesID):
+    if Stop.sameBus(des.busesID,take.busesID):
         #可直達，不需要轉乘
         
         print("\n----------------不需要轉乘-----------------")
@@ -62,54 +62,53 @@ if __name__ =='__main__':
         print(f"\n從 {takeName} 撘乘：")
         for i in take.lineStops:
             for j in des.lineStops:
-                if Bus.stopsVector(i,j):
-                    print(f"{i[Bus.busID]}[{i[Bus.stopID]}]，",end='')
-                    print(f"到 {j[Bus.stopName_CN]}[{j[Bus.stopID]}] 下車")
+                if Stop.stopsVector(i,j):
+                    print(f"{i[Stop.busID]}[{i[Stop.stopID]}]，",end='')
+                    print(f"到 {j[Stop.stopName_CN]}[{j[Stop.stopID]}] 下車")
              
     else:
         #需要轉乘
         print("\n---------------需要轉乘------------------")  
  
-        des.lines=Bus.stopInfo(des.busesID,busList)
-        
-        take.lines=Bus.stopInfo(take.busesID,busList)   
+        des.lines=Stop.stopInfo(des.busesID,busList)
+        take.lines=Stop.stopInfo(take.busesID,busList)   
         
         
         for i in take.lines:
             for j in des.lines:
-                if i[Bus.stopName_CN] == j[Bus.stopName_CN]: #找出行經撘乘站路線上與行經目的地站路線上相同的站點名稱，為轉乘站
+                if i[Stop.stopName_CN] == j[Stop.stopName_CN]: #找出行經撘乘站路線上與行經目的地站路線上相同的站點名稱，為轉乘站
                     TF_Stops.append(i)
                     TF_Stops.append(j)
                     break
                 
         for i in take.lineStops:
             for j in TF_Stops:
-                if Bus.stopsVector(i,j): #找出從撘乘站前往轉乘站的公車
+                if Stop.stopsVector(i,j): #找出從撘乘站前往轉乘站的公車
                     to_TF.append(j)
                     
         for i in TF_Stops:
             for j in des.lineStops:
-                if Bus.stopsVector(i,j): #找出從轉乘站前往目的地站的公車
+                if Stop.stopsVector(i,j): #找出從轉乘站前往目的地站的公車
                     TF_To.append(i)
                                               
         tempBus=""
         print(f"\n從 {takeName}")
         
-        #des.lineStops=sorted(des.lineStops,key=lambda x: x[Bus.stopName_CN])
+        #des.lineStops=sorted(des.lineStops,key=lambda x: x[Stop.stopName_CN])
 
         for i in to_TF:
-            if tempBus == '' or tempBus != i[Bus.busID]:
-                tempBus=i[Bus.busID]
+            if tempBus == '' or tempBus != i[Stop.busID]:
+                tempBus=i[Stop.busID]
                 print("-------------------------\n")
-                print(f"--撘乘{i[Bus.busID]}[{i[Bus.roundTrip]}]公車")
+                print(f"--撘乘{i[Stop.busID]}[{i[Stop.roundTrip]}]公車")
                         
             for j in TF_To:
-                if i[Bus.stopName_CN] == j[Bus.stopName_CN] :
+                if i[Stop.stopName_CN] == j[Stop.stopName_CN] :
                     for k in des.lineStops:
-                        if Bus.stopsVector(j,k):
-                            print(f"----到[{i[Bus.stopID]}] {i[Bus.stopName_CN]}",end='')
-                            print(f"[{j[Bus.stopID]}] ，轉乘{j[Bus.busID]}[{j[Bus.roundTrip]}]公車，",end='')
-                            print(f"抵達 {k[Bus.stopName_CN]}[{k[Bus.stopID]}]")
+                        if Stop.stopsVector(j,k):
+                            print(f"----到[{i[Stop.stopID]}] {i[Stop.stopName_CN]}",end='')
+                            print(f"[{j[Stop.stopID]}] ，轉乘{j[Stop.busID]}[{j[Stop.roundTrip]}]公車，",end='')
+                            print(f"抵達 {k[Stop.stopName_CN]}[{k[Stop.stopID]}]")
                     
                     break
                 

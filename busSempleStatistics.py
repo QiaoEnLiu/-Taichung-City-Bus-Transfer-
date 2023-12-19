@@ -5,16 +5,16 @@ Created on Sun Jul  9 14:22:03 2023
 @author: User
 """
 #from FilePath_OOP import FilePath
-from Bus_OOP import Bus
+from Bus_OOP import Stop
 from FilePath_OOP import FilePath
 
 if __name__ =='__main__':
     #臺中市公車路線初步統計
     
     pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    busList=Bus.readFile(pathDir)
+    busList=Stop.readFile(pathDir)
   
-    # busListDF=Bus.readOnlineFile()
+    # busListDF=Stop.readOnlineFile()
     # busList=busListDF.to_dict('records') 
     
     print('臺中市市區公車站牌資料（統計資料）\n')
@@ -24,9 +24,9 @@ if __name__ =='__main__':
     
     while search!='Quit':
     
-        busIDList=Bus.allBusID(busList)    
-        listStopsNum=Bus.allBusStopsNum(busList,busIDList)
-        busNameList=Bus.allBusName(busList)
+        busIDList=Stop.allBusID(busList)    
+        listStopsNum=Stop.allBusStopsNum(busList,busIDList)
+        busNameList=Stop.allBusName(busList)
         
         if search =='1':
             print("路線編號") #臺中市所有公車路線數量及編號
@@ -67,35 +67,35 @@ if __name__ =='__main__':
             sortStops=input('1：以名稱總計\n2：以站點位置（經緯度）總計\n')
             
             if sortStops=="1":
-                stopsSort=sorted(busList,key=lambda x: x[Bus.busName])
+                stopsSort=sorted(busList,key=lambda x: x[Stop.busName])
                 stopNameList=[]
                 tempName=''
                 for i in stopsSort:
                     tempList=[]
-                    if tempName=='' or tempName!=i[Bus.busName]:
-                        tempList.append(i[Bus.busName])
-                        tempList.append(i[Bus.stopName_EN])
+                    if tempName=='' or tempName!=i[Stop.busName]:
+                        tempList.append(i[Stop.busName])
+                        tempList.append(i[Stop.stopName_EN])
                         stopNameList.append(tempList)
-                        tempName=i[Bus.busName]
-                    if tempName == i[Bus.busName]:
+                        tempName=i[Stop.busName]
+                    if tempName == i[Stop.busName]:
                         continue
                 nums=len(stopNameList)
                 print(f'行經臺中市內所有路線上的站點共{len(stopNameList)}站\n')
             
             elif sortStops=="2":
-                stopsSort=sorted(busList,key=lambda x: (x[Bus.busName],x[Bus.latitude]))
+                stopsSort=sorted(busList,key=lambda x: (x[Stop.busName],x[Stop.latitude]))
                 stopNameList=[]
                 tempNameLaLo=''
                 for i in stopsSort:
                     tempList=[]
-                    if tempNameLaLo=='' or tempNameLaLo!=(i[Bus.busName]+","+str(i[Bus.latitude])+","+str(i[Bus.longitude])):
-                        tempList.append(i[Bus.busName])
-                        tempList.append(i[Bus.stopName_EN])
-                        tempList.append(i[Bus.latitude])
-                        tempList.append(i[Bus.longitude])
+                    if tempNameLaLo=='' or tempNameLaLo!=(i[Stop.busName]+","+str(i[Stop.latitude])+","+str(i[Stop.longitude])):
+                        tempList.append(i[Stop.busName])
+                        tempList.append(i[Stop.stopName_EN])
+                        tempList.append(i[Stop.latitude])
+                        tempList.append(i[Stop.longitude])
                         stopNameList.append(tempList)
-                        tempNameLaLo=(i[Bus.busName]+","+str(i[Bus.latitude])+","+str(i[Bus.longitude]))
-                    if tempNameLaLo ==(i[Bus.busName]+","+str(i[Bus.latitude])+","+str(i[Bus.longitude])):
+                        tempNameLaLo=(i[Stop.busName]+","+str(i[Stop.latitude])+","+str(i[Stop.longitude]))
+                    if tempNameLaLo ==(i[Stop.busName]+","+str(i[Stop.latitude])+","+str(i[Stop.longitude])):
                         continue
                 nums=len(stopNameList)
                 print(f'行經臺中市內所有路線上的站點共{len(stopNameList)}站\n')

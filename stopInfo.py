@@ -5,7 +5,7 @@ Created on Mon Jul  3 14:39:12 2023
 @author: User
 """
 from FilePath_OOP import FilePath
-from Bus_OOP import Bus
+from Bus_OOP import Stop
 
 
 
@@ -13,9 +13,9 @@ if __name__ =='__main__':
     #站牌資訊，該站點上所有公車路線
 
     pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    busList=Bus.readFile(pathDir)
+    busList=Stop.readFile(pathDir)
   
-    # busListDF=Bus.readOnlineFile()
+    # busListDF=Stop.readOnlineFile()
     # busList=busListDF.to_dict('records') 
     
     
@@ -30,18 +30,18 @@ if __name__ =='__main__':
     stopsName=[]
     
     for i in busList:
-        if stopName in i[Bus.stopName_CN]:
+        if stopName in i[Stop.stopName_CN]:
             busIDList.append(i)
             
-    stopsSort=sorted(busIDList,key=lambda x: (x[Bus.stopName_CN],x[Bus.latitude]))
+    stopsSort=sorted(busIDList,key=lambda x: (x[Stop.stopName_CN],x[Stop.latitude]))
 
     print()
     tempNameLaLo=''
     for i in stopsSort:
-        if tempNameLaLo=='' or tempNameLaLo!=(i[Bus.stopName_CN]+','+str(i[Bus.latitude])+','+str(i[Bus.longitude])):
-            tempNameLaLo=i[Bus.stopName_CN]+','+str(i[Bus.latitude])+','+str(i[Bus.longitude])
+        if tempNameLaLo=='' or tempNameLaLo!=(i[Stop.stopName_CN]+','+str(i[Stop.latitude])+','+str(i[Stop.longitude])):
+            tempNameLaLo=i[Stop.stopName_CN]+','+str(i[Stop.latitude])+','+str(i[Stop.longitude])
             print("---------")
-            print(f"\n{i[Bus.stopName_CN]}",f"{i[Bus.stopName_EN]},",f"({i[Bus.latitude]},{i[Bus.longitude]})\n---------")
-        if tempNameLaLo == (i[Bus.stopName_CN]+','+str(i[Bus.latitude])+','+str(i[Bus.longitude])):
-            print(i[Bus.busID],i[Bus.roundTrip],f"[{i[Bus.stopID]}]")
+            print(f"\n{i[Stop.stopName_CN]}",f"{i[Stop.stopName_EN]},",f"({i[Stop.latitude]},{i[Stop.longitude]})\n---------")
+        if tempNameLaLo == (i[Stop.stopName_CN]+','+str(i[Stop.latitude])+','+str(i[Stop.longitude])):
+            print(i[Stop.busID],i[Stop.roundTrip],f"[{i[Stop.stopID]}]")
     print("---------")

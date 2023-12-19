@@ -5,17 +5,17 @@ Created on Tue May 16 15:33:26 2023
 @author: User
 """
 from FilePath_OOP import FilePath
-from Bus_OOP import Bus
+from Bus_OOP import Stop
 
    
 if __name__ =='__main__':        
     #從現在撘乘站，前往目的地可撘哪些公車
     
-    # busListDF=Bus.readOnlineFile()
+    # busListDF=Stop.readOnlineFile()
     # busList=busListDF.to_dict('records') 
     
     pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    busList=Bus.readFile(pathDir)
+    busList=Stop.readFile(pathDir)
 
     des="朝陽科技大學"
     take="吉峰東自強路口"
@@ -31,16 +31,16 @@ if __name__ =='__main__':
     takeStop=[]
     
     #pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()
-    #busList=Bus.readFile(pathDir)
+    #busList=Stop.readFile(pathDir)
     
       
-    desBus=Bus.IDsAtStop(des,busList)
-    desStop=Bus.busesAtStop(des,busList)
+    desBus=Stop.IDsAtStop(des,busList)
+    desStop=Stop.busesAtStop(des,busList)
         
-    takeBus=Bus.IDsAtStop(take,busList)      
-    takeStop=Bus.busesAtStop(take,busList)
+    takeBus=Stop.IDsAtStop(take,busList)      
+    takeStop=Stop.busesAtStop(take,busList)
     
-    if Bus.sameBus(desBus,takeBus):
+    if Stop.sameBus(desBus,takeBus):
          #兩站有相同的公車路線，則不需要轉乘
          
          print("----------------不需要轉乘-----------------")
@@ -48,8 +48,8 @@ if __name__ =='__main__':
          print(f"\n從 {take} 撘乘：")
          for i in takeStop:
              for j in desStop:
-                 if Bus.stopsVector(i,j):
-                     print(f"{j[Bus.busID]}[{j[Bus.stopID]}]，到 {j[Bus.stopName_CN]}[{j[Bus.stopID]}] 下車")
+                 if Stop.stopsVector(i,j):
+                     print(f"{j[Stop.busID]}[{j[Stop.stopID]}]，到 {j[Stop.stopName_CN]}[{j[Stop.stopID]}] 下車")
         
     else:
         #兩站若沒有相同的公車路線，則需要轉乘

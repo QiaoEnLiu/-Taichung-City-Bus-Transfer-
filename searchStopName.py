@@ -5,14 +5,14 @@ Created on Sun Jul  9 16:53:44 2023
 @author: User
 """
 from FilePath_OOP import FilePath
-from Bus_OOP import Bus
+from Bus_OOP import Stop
 
 
 if __name__ =='__main__':
     #查站點名稱，中文站名比對（輸出只有站名）
     
     pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    busList=Bus.readFile(pathDir)
+    busList=Stop.readFile(pathDir)
   
     # busListDF=Bus.readOnlineFile()
     # busList=busListDF.to_dict('records') 
@@ -25,22 +25,22 @@ if __name__ =='__main__':
     # 臺中車站, 高鐵臺中站
     # Taichung Station, HSR Taichung Station
     
-    CN_Name=Bus.stopName_CN    
-    EN_Name=Bus.stopName_EN
+    CN_Name=Stop.stopName_CN    
+    EN_Name=Stop.stopName_EN
         
     stopsList=[]
     stopsSort=[]
     stopsNameList=[]
   
-    #stopsList=Bus.searchStopName(lang, stopNameCN,stopNameEN, busList)
-    stopsList=Bus.searchStopName('CN', stopNameCN,stopNameEN, busList)
+    #stopsList=Stop.searchStopName(lang, stopNameCN,stopNameEN, busList)
+    stopsList=Stop.searchStopName('CN', stopNameCN,stopNameEN, busList)
 
 
-    stopsSort=sorted(stopsList,key=lambda x: (x[Bus.stopName_CN],x[Bus.latitude]))
+    stopsSort=sorted(stopsList,key=lambda x: (x[Stop.stopName_CN],x[Stop.latitude]))
     tempStopNameLaLo=''
     print()
     for i in stopsSort:
-        if tempStopNameLaLo == '' or tempStopNameLaLo != (i[Bus.stopName_CN]+','+str(i[Bus.latitude])+','+str(i[Bus.longitude])):
+        if tempStopNameLaLo == '' or tempStopNameLaLo != (i[Stop.stopName_CN]+','+str(i[Stop.latitude])+','+str(i[Stop.longitude])):
             stopsNameList.append(i)
-            tempStopNameLaLo=i[Bus.stopName_CN]+','+str(i[Bus.latitude])+','+str(i[Bus.longitude])
-            print(i[Bus.stopName_CN],i[Bus.stopName_EN],i[Bus.latitude],i[Bus.longitude])
+            tempStopNameLaLo=i[Stop.stopName_CN]+','+str(i[Stop.latitude])+','+str(i[Stop.longitude])
+            print(i[Stop.stopName_CN],i[Stop.stopName_EN],i[Stop.latitude],i[Stop.longitude])

@@ -5,7 +5,7 @@ Created on Mon Jul  3 17:19:49 2023
 @author: User
 """
 #from FilePath_OOP import FilePath
-from Bus_OOP import Bus
+from Bus_OOP import Stop
 from FilePath_OOP import FilePath
 
 
@@ -19,11 +19,11 @@ if __name__ =='__main__':
     sameStops=[]
         
     pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    busList=Bus.readFile(pathDir)
+    busList=Stop.readFile(pathDir)
   
-    # busListDF=Bus.readOnlineFile()
+    # busListDF=Stop.readOnlineFile()
     # busList=busListDF.to_dict('records') 
     
-    sameStops=Bus.sameStops(bus1,bus2,busList) 
+    sameStops=Stop.sameStops(bus1,bus2,busList) 
                 
     

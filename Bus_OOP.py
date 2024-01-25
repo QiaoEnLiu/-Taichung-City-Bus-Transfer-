@@ -138,7 +138,11 @@ class Stop:
     
     def stopsVector(take, des): #撘乘站與目的地站是否在同一條路線、同個方向、目的地站是否在撘乘站之後
         
-        return take[Stop.busID] == des[Stop.busID] and take[Stop.roundTrip] == des[Stop.roundTrip] and int(take[Stop.stopID]) < int(des[Stop.stopID])
+        sameBus = take[Stop.busID] == des[Stop.busID]
+        sameDirection = take[Stop.roundTrip] == des[Stop.roundTrip]
+        takeToDes = int(take[Stop.stopID]) < int(des[Stop.stopID])
+    
+        return sameBus and sameDirection and takeToDes
         
                 
     def allBusID(busList): #臺中市所有公車路線編號

@@ -96,7 +96,9 @@ if __name__ == '__main__':
                 if i[Stop.stopName_CN] == j[Stop.stopName_CN]: #為轉乘站
                     TF_Stops.append(i)
                     TF_Stops.append(j)
-                    break
+                    # break
+        
+        TF_Stops = list({frozenset(item.items()): item for item in TF_Stops}.values())
         #endregion
         
         #region 找出從撘乘站前往轉乘站的公車
@@ -104,7 +106,7 @@ if __name__ == '__main__':
             for j in TF_Stops:
                 if Stop.stopsVector(i,j):
                     To_TF.append(j)
-                    
+        To_TF = list({frozenset(item.items()): item for item in To_TF}.values())
         #endregion
         
         #region 找出從轉乘站前往目的地站的公車
@@ -112,6 +114,7 @@ if __name__ == '__main__':
             for j in des.lineStops:
                 if Stop.stopsVector(i,j):
                     TF_To.append(i)
+        TF_To = list({frozenset(item.items()): item for item in TF_To}.values())
         #endregion
         
         
@@ -139,7 +142,7 @@ if __name__ == '__main__':
                             print(f"[{j[Stop.stopID]}] ，轉乘{j[Stop.busID]}[{j[Stop.roundTrip]}]公車，",end='')
                             print(f"抵達 {k[Stop.stopName_CN]}[{k[Stop.stopID]}]")
                     
-                    break
+                    # break
         #endregion
                 
         print("-------------------------")

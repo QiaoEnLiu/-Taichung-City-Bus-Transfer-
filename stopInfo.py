@@ -19,7 +19,8 @@ if __name__ =='__main__':
     # busList=busListDF.to_dict('records') 
     
     
-    stopName=input('請輸入站點名稱（朝陽科技大學、臺中車站、逢甲大學）：')
+    # stopName=input('請輸入站點名稱（朝陽科技大學、臺中車站、逢甲大學）：')
+    stopName='臺中車站'
 
     # 朝陽科技大學, 吉峰東自強路口
     # 臺中車站, 高鐵臺中站, 臺中市政府, 新光三越     
@@ -43,5 +44,5 @@ if __name__ =='__main__':
             print("---------")
             print(f"\n{i[Stop.stopName_CN]}",f"{i[Stop.stopName_EN]},",f"({i[Stop.latitude]},{i[Stop.longitude]})\n---------")
         if tempNameLaLo == (i[Stop.stopName_CN]+','+str(i[Stop.latitude])+','+str(i[Stop.longitude])):
-            print(i[Stop.busID],i[Stop.roundTrip],f"[{i[Stop.stopID]}]")
+            print(i[Stop.busID],i[Stop.busName],i[Stop.roundTrip],f"[{i[Stop.stopID]}]")
     print("---------")

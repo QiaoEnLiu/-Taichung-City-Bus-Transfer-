@@ -31,6 +31,7 @@ if __name__ =='__main__':
     stopsList=[]
     stopsSort=[]
     stopsNameList=[]
+    stopsInfo=[]
   
     #stopsList=Stop.searchStopName(lang, stopNameCN,stopNameEN, busList)
     stopsList=Stop.searchStopName('CN', stopNameCN,stopNameEN, busList)
@@ -40,7 +41,27 @@ if __name__ =='__main__':
     tempStopNameLaLo=''
     print()
     for i in stopsSort:
-        if tempStopNameLaLo == '' or tempStopNameLaLo != (i[Stop.stopName_CN]+','+str(i[Stop.latitude])+','+str(i[Stop.longitude])):
+        if tempStopNameLaLo == '' or \
+        tempStopNameLaLo != (i[Stop.stopName_CN]+','+str(i[Stop.latitude])+','+str(i[Stop.longitude])):
+                
             stopsNameList.append(i)
             tempStopNameLaLo=i[Stop.stopName_CN]+','+str(i[Stop.latitude])+','+str(i[Stop.longitude])
+            # stopsInfo.append({Stop.stopName_CN:i[Stop.stopName_CN],
+            #                   Stop.latitude:str(i[Stop.latitude]),
+            #                   Stop.longitude:str(i[Stop.longitude])})
             print(i[Stop.stopName_CN],i[Stop.stopName_EN],i[Stop.latitude],i[Stop.longitude])
+    
+    # for i in stopsInfo:
+    #     print(i)
+    #     for j in stopsSort:
+                        
+    #         if i[Stop.stopName_CN]== j[Stop.stopName_CN] and \
+    #         str(i[Stop.latitude]) == j[Stop.latitude] and \
+    #         str(i[Stop.longitude]) ==j[Stop.longitude]:
+                
+    #             print("--",j[Stop.busID],j[Stop.busName],j[Stop.roundTrip],j[Stop.stopID])
+                
+    #     print()
+                
+                    
+                                                                                       

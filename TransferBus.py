@@ -29,11 +29,14 @@ if __name__ == '__main__':
 
     #region 目的地與撘乘站
     #目的地名稱（地標）
-    desName=input('請輸入目的地（輸入中文，可模糊名稱、地標或站名，如「臺中車站」、「逢甲大學」或「逢甲大學(福星路)」、「逢甲大學(逢甲路)」）：\n')
+    # desName=input('請輸入目的地（輸入中文，可模糊名稱、地標或站名，如「臺中車站」、「逢甲大學」或「逢甲大學(福星路)」、「逢甲大學(逢甲路)」）：\n')
+    desName="逢甲大學(福星路)"
         #逢甲大學, 臺中車站, 高鐵臺中站, 臺中市政府, 新光三越
     
+    
     #撘乘站名稱
-    takeName=input('請輸入撘乘站站名（輸入中文，須精準站名，如「逢甲大學(福星路)」、「逢甲大學(逢甲路)」、「朝陽科技大學」、「吉峰東自強路口」）：\n')
+    # takeName=input('請輸入撘乘站站名（輸入中文，須精準站名，如「逢甲大學(福星路)」、「逢甲大學(逢甲路)」、「朝陽科技大學」、「吉峰東自強路口」）：\n')
+    takeName="朝陽科技大學"
         #逢甲大學(福星路), 逢甲大學(逢甲路), 朝陽科技大學, 吉峰東自強路口
          
     des=BusLine() #目的地站站點相關串列
@@ -94,19 +97,29 @@ if __name__ == '__main__':
         for i in take.lines:
             for j in des.lines:
                 if i[Stop.stopName_CN] == j[Stop.stopName_CN]: #為轉乘站
-                    TF_Stops.append(i)
-                    TF_Stops.append(j)
+                
+                    #region 找出從撘乘站前往轉乘站的公車
+                    Stop.unduplicateList(To_TF, i)
+                    #endregion
+                    
+                    #region 找出從轉乘站前往目的地站的公車
+                    Stop.unduplicateList(TF_To, j)
+                    #endregion
+                    
+                    # TF_Stops.append(i)
+                    # TF_Stops.append(j)
                     # break
         
-        TF_Stops = list({frozenset(item.items()): item for item in TF_Stops}.values())
+        # TF_Stops = Stop.autoUnduplicateList(TF_Stops)
         #endregion
         
+        '''
         #region 找出從撘乘站前往轉乘站的公車
         for i in take.lineStops:
             for j in TF_Stops:
                 if Stop.stopsVector(i,j):
                     To_TF.append(j)
-        To_TF = list({frozenset(item.items()): item for item in To_TF}.values())
+        To_TF = Stop.autoUnduplicateList(To_TF)
         #endregion
         
         #region 找出從轉乘站前往目的地站的公車
@@ -114,10 +127,10 @@ if __name__ == '__main__':
             for j in des.lineStops:
                 if Stop.stopsVector(i,j):
                     TF_To.append(i)
-        TF_To = list({frozenset(item.items()): item for item in TF_To}.values())
+        TF_To = Stop.autoUnduplicateList(TF_To)
         #endregion
         
-        
+        '''
                                               
         tempBus=""
         print(f"\n從 {takeName}")

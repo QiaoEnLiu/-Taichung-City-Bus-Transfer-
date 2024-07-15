@@ -29,7 +29,8 @@ if __name__ =='__main__':
     if len(stopsList)==0:
         print('目前臺中市內尚未有此公車')
     
-    else:  
+    else:
+        
         tempBound=''
         for i in stopsList:
             if tempBound == '' or tempBound != i[Stop.roundTrip]:

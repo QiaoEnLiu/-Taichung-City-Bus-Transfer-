@@ -6,6 +6,7 @@ Created on Sun Jul  9 12:24:44 2023
 """
 import csv
 import pandas as pd
+from functools import lru_cache,cache
 
 #region 公車路線變數
 class BusLine:

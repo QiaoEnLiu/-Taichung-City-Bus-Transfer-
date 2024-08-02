@@ -7,8 +7,10 @@ Created on Mon Jul 15 14:14:07 2024
 from Bus_OOP import Stop
 from FilePath_OOP import FilePath
 
-pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
-busList=Stop.readFile(pathDir)
+theStop = Stop()
+
+pathDir = FilePath("臺中市市區公車站牌資料", "CSV").path()    
+busList = theStop.readFile(pathDir)
 
 if __name__ =='__main__':
     
@@ -18,10 +20,13 @@ if __name__ =='__main__':
     
     stopNameList=[]
     for i in busList:
-        tempLocat={Stop.stopName_CN:i[Stop.stopName_CN],
-                   Stop.stopName_EN:i[Stop.stopName_EN],
-                   Stop.latitude:i[Stop.latitude],
-                   Stop.longitude:i[Stop.longitude]}
-        Stop.unduplicateList(stopNameList, tempLocat)
+        tempLocat = {
+            theStop.stopName_CN:i[theStop.stopName_CN],
+            theStop.stopName_EN:i[theStop.stopName_EN],
+            theStop.latitude:i[theStop.latitude],
+            theStop.longitude:i[theStop.longitude]
+            }
+        
+        theStop.unduplicateList(stopNameList, tempLocat)
         
     print(stopNameList)

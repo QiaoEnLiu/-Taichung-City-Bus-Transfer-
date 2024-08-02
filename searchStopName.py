@@ -7,59 +7,61 @@ Created on Sun Jul  9 16:53:44 2023
 from FilePath_OOP import FilePath
 from Bus_OOP import Stop
 
+theStop = Stop()
+
 
 if __name__ =='__main__':
     #查站點名稱，中文站名比對（輸出只有站名）
     
-    pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    busList=Stop.readFile(pathDir)
+    pathDir = FilePath("臺中市市區公車站牌資料", "CSV").path()    
+    busList = theStop.readFile(pathDir)
   
-    # busListDF=Bus.readOnlineFile()
-    # busList=busListDF.to_dict('records') 
+    # busListDF = theStop.readOnlineFile()
+    # busList = busListDF.to_dict('records') 
     
-    #lang=input('查詢站點「臺中車站」 Seach Stop Name(Taichung Station)\n輸入語言 Input language for step name(CN/EN):')
+    #lang = input('查詢站點「臺中車站」 Seach Stop Name(Taichung Station)\n輸入語言 Input language for step name(CN/EN):')
     
-    stopNameCN="臺中車站"
-    stopNameEN="Taichung Station"
+    stopNameCN = "臺中車站"
+    stopNameEN = "Taichung Station"
     
     # 臺中車站, 高鐵臺中站
     # Taichung Station, HSR Taichung Station
     
-    CN_Name=Stop.stopName_CN    
-    EN_Name=Stop.stopName_EN
+    CN_Name = theStop.stopName_CN    
+    EN_Name = theStop.stopName_EN
         
-    stopsList=[]
-    stopsSort=[]
-    stopsNameList=[]
-    stopsInfo=[]
+    stopsList = []
+    stopsSort = []
+    stopsNameList = []
+    stopsInfo = []
   
-    #stopsList=Stop.searchStopName(lang, stopNameCN,stopNameEN, busList)
-    stopsList=Stop.searchStopName('CN', stopNameCN,stopNameEN, busList)
+    #stopsList=theStop.searchStopName(lang, stopNameCN, stopNameEN, busList)
+    stopsList=theStop.searchStopName('CN', stopNameCN, stopNameEN, busList)
 
 
-    stopsSort=sorted(stopsList,key=lambda x: (x[Stop.stopName_CN],x[Stop.latitude]))
+    stopsSort=sorted(stopsList,key=lambda x: (x[theStop.stopName_CN], x[theStop.latitude]))
     tempStopNameLaLo=''
     print()
     for i in stopsSort:
         if tempStopNameLaLo == '' or \
-        tempStopNameLaLo != (i[Stop.stopName_CN]+','+str(i[Stop.latitude])+','+str(i[Stop.longitude])):
+        tempStopNameLaLo != (i[theStop.stopName_CN]+','+str(i[theStop.latitude])+','+str(i[theStop.longitude])):
                 
             stopsNameList.append(i)
-            tempStopNameLaLo=i[Stop.stopName_CN]+','+str(i[Stop.latitude])+','+str(i[Stop.longitude])
-            # stopsInfo.append({Stop.stopName_CN:i[Stop.stopName_CN],
-            #                   Stop.latitude:str(i[Stop.latitude]),
-            #                   Stop.longitude:str(i[Stop.longitude])})
-            print(i[Stop.stopName_CN],i[Stop.stopName_EN],i[Stop.latitude],i[Stop.longitude])
+            tempStopNameLaLo=i[theStop.stopName_CN]+','+str(i[theStop.latitude])+','+str(i[theStop.longitude])
+            # stopsInfo.append({theStop.stopName_CN:i[theStop.stopName_CN],
+            #                   theStop.latitude:str(i[theStop.latitude]),
+            #                   theStop.longitude:str(i[theStop.longitude])})
+            print(i[theStop.stopName_CN],i[theStop.stopName_EN],i[theStop.latitude],i[theStop.longitude])
     
     # for i in stopsInfo:
     #     print(i)
     #     for j in stopsSort:
                         
-    #         if i[Stop.stopName_CN]== j[Stop.stopName_CN] and \
-    #         str(i[Stop.latitude]) == j[Stop.latitude] and \
-    #         str(i[Stop.longitude]) ==j[Stop.longitude]:
+    #         if i[theStop.stopName_CN] == j[theStop.stopName_CN] and \
+    #         str(i[theStop.latitude]) == j[theStop.latitude] and \
+    #         str(i[theStop.longitude]) == j[theStop.longitude]:
                 
-    #             print("--",j[Stop.busID],j[Stop.busName],j[Stop.roundTrip],j[Stop.stopID])
+    #             print("--",j[theStop.busID], j[theStop.busName], j[theStop.roundTrip], j[theStop.stopID])
                 
     #     print()
                 

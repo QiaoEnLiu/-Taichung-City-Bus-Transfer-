@@ -144,7 +144,31 @@ class Stop:
             
         return busLine
     #endregion
-
+    
+    #region
+    def stopInfoDict(self, bus):
+        
+        stopDict = {self.stopName_CN : bus[self.stopName_CN],
+                         self.stopName_EN : bus[self.stopName_EN],
+                         self.latitude : bus[self.latitude],
+                         self.longitude : bus[self.longitude],
+                         self.roundTrip_ob + self.busID : [],
+                         self.roundTrip_ib + self.busID : []}
+        
+        return stopDict
+    #endregion
+    
+    #region
+    def stopExist(self, bus, stop):
+        
+        nameExist = bus[self.stopName_CN] == stop.get(self.stopName_CN)
+        latExist = bus[self.latitude] == stop.get(self.latitude)
+        lonExist = bus[self.longitude] == stop.get(self.longitude)
+        
+        return nameExist and latExist and lonExist
+        
+    
+    #endregion
     #region 路線延站
     def linesAtStop(self, busID, tempList, busList): 
         #從站牌上的公車路線延站

@@ -6,6 +6,7 @@ Created on Sun Jul  9 12:24:44 2023
 """
 import csv
 import pandas as pd
+import json
 
 #region 公車路線變數
 class BusLine:
@@ -69,7 +70,7 @@ class Stop:
     #endregion
 
     #region 讀CSV檔
-    def readFile(self, filePath):
+    def readCSV_File(self, filePath):
         
         busList=[]             
         with open(filePath,newline='',encoding='utf-8-sig') as csvFile:   #encoding='utf-8-sig'     
@@ -81,6 +82,12 @@ class Stop:
     
     #endregion
 
+    def readJson_File(self, filePath):
+        jsonFile = open(filePath,'r')
+        with open(filePath,'r') as file:
+            jsonFile = json.load(file)
+        return jsonFile
+    
     #region 查行經該站點所有的公車編號
     def IDsAtStop(self, stop, busList):
        
@@ -145,20 +152,27 @@ class Stop:
         return busLine
     #endregion
     
-    #region
+    #region 站牌細部資訊簡化為字典
     def stopInfoDict(self, bus):
         
         stopDict = {self.stopName_CN : bus[self.stopName_CN],
                          self.stopName_EN : bus[self.stopName_EN],
                          self.latitude : bus[self.latitude],
                          self.longitude : bus[self.longitude],
-                         self.roundTrip_ob + self.busID : [],
-                         self.roundTrip_ib + self.busID : []}
+                         self.roundTrip_ob : {},
+                         self.roundTrip_ib : {}}
+        
+        # stopDict = {self.stopName_CN : bus[self.stopName_CN],
+        #                  self.stopName_EN : bus[self.stopName_EN],
+        #                  self.latitude : bus[self.latitude],
+        #                  self.longitude : bus[self.longitude],
+        #                  self.roundTrip_ob : [],
+        #                  self.roundTrip_ib : []}
         
         return stopDict
     #endregion
     
-    #region
+    #region 站點是否已存在
     def stopExist(self, bus, stop):
         
         nameExist = bus[self.stopName_CN] == stop.get(self.stopName_CN)
@@ -169,6 +183,7 @@ class Stop:
         
     
     #endregion
+    
     #region 路線延站
     def linesAtStop(self, busID, tempList, busList): 
         #從站牌上的公車路線延站

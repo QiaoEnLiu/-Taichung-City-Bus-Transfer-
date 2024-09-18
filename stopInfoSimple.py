@@ -12,8 +12,8 @@ import json
 theStop = Stop()
 
 
-pathDir = FilePath("臺中市市區公車站牌資料", "CSV").path()    
-busList = theStop.readFile(pathDir)
+pathDir = FilePath("測試資料集1", "CSV").path()    
+busList = theStop.readCSV_File(pathDir)
     
     
 stopInfo = []    
@@ -36,7 +36,7 @@ for bus in busList:
                 stop[bus[theStop.roundTrip]].update({bus[theStop.busID] : [bus[theStop.busID], bus[theStop.stopID]]})
                        
 
-with open(FilePath("臺中市市區公車站細部資訊", "JSON").path(), "w", encoding="utf-8") as jsonfile:
+with open(FilePath("測試資料集1", "JSON").path(), "w", encoding="utf-8") as jsonfile:
     json.dump(stopInfo, jsonfile, ensure_ascii=False, indent=4)
                 
         

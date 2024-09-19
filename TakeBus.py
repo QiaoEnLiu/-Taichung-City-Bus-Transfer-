@@ -18,7 +18,7 @@ if __name__ =='__main__':
     
     
     pathDir=FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    busList=Stop.readFile(pathDir)
+    busList=Stop.readCSV_File(pathDir)
     #endregion
 
     #region 目的地站與撘乘站測試

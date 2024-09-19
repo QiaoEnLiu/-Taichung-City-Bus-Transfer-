@@ -13,7 +13,7 @@ if __name__ =='__main__':
     #站牌資訊，該站點上所有公車路線
 
     pathDir = FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    busList = theStop.readFile(pathDir)
+    busList = theStop.readCSV_File(pathDir)
   
     # busListDF = theStop.readOnlineFile()
     # busList = busListDF.to_dict('records') 

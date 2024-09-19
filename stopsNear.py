@@ -10,7 +10,7 @@ from FilePath_OOP import FilePath
 theStop = Stop()
 
 pathDir = FilePath("臺中市市區公車站牌資料", "CSV").path()    
-busList = theStop.readFile(pathDir)
+busList = theStop.readCSV_File(pathDir)
 
 if __name__ =='__main__':
     

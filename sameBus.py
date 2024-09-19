@@ -21,7 +21,7 @@ if __name__ =='__main__':
     sameStops = []
         
     pathDir = FilePath("臺中市市區公車站牌資料", "CSV").path()    
-    busList = theStop.readFile(pathDir)
+    busList = theStop.readCSV_File(pathDir)
   
     # busListDF = theStop.readOnlineFile()
     # busList = busListDF.to_dict('records') 
